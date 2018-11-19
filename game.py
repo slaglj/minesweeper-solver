@@ -7,7 +7,12 @@ import itertools
 class GameOverException(Exception):
 	pass
 
+class GameNotOverException(Exception):
+	pass
 
+
+
+#TODO add methods to MinesweeperGame docstring
 
 class MinesweeperGame:
 	"""
@@ -151,8 +156,6 @@ class MinesweeperGame:
 
 			square.num_surrounding = [adj_square.contains_mine for adj_square in adj_squares].count(True)
 
-
-
 	def is_flagged(self,point):
 		"""Return true if point is flagged
 		
@@ -165,6 +168,19 @@ class MinesweeperGame:
 		"""
 		square = self._get_square(point)
 		return square.is_flagged
+
+	def is_revealed(self,point):
+		"""Return true if point is revealed
+		
+		Args:
+			point (tuple of ints) -- coordinate point on the game board
+
+		Returns:
+			bool -- indicates square is revealed
+
+		"""
+		square = self._get_square(point)
+		return square.is_revealed
 
 	def place_flag(self, point):
 		"""Place flag at point whether or not there already was a a flag there
@@ -225,9 +241,11 @@ class MinesweeperGame:
 			GameOverException -- raised if the game is already over
 		"""
 
-
 		if self.is_over:
 			raise GameOverException
+		
+		if self.is_revealed(point):
+			return
 
 		square = self._get_square(point)
 		square.is_revealed = True
@@ -248,6 +266,39 @@ class MinesweeperGame:
 			for adj_point in self.get_adjacent_points(point):
 				self.reveal_square(adj_point)
 			return
+
+	def num_mines_surrounding(self, point):
+		"""Return number of mines surrounding point
+		
+		Args:
+			point (tuple of ints) -- coordinate point on the game board
+
+		Return:
+			If the square at point is revealed or the game is over, return
+			the number of mines in adjacent squares. Otherwise, (if the square
+			is revealed or the game is not over) return None.
+		"""
+		if self.is_over or self.is_revealed(point):
+			return self._get_square(point).num_surrounding
+		else:
+			return None
+
+	def contains_mine(self,point):
+		"""If game is over, indicates if there is a mine at point.
+		
+		Args:
+			point (tuple of ints) -- coordinate point on the game board
+
+		Return:
+			bool indicating if there is a mine at point
+
+		Raises:
+			GameNotOverException if the game isn't over
+		"""
+		if self.is_over:
+			return self._get_square(point).contains_mine
+		else:
+			raise GameNotOverException
 
 
 
