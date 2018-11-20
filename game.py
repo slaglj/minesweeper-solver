@@ -79,7 +79,7 @@ class MinesweeperGame:
 
 		
 	def board_iterator(self):
-		"""Return an iterator which iterates over all points on the game board"""
+		"""Return an iterator going over all points on the game board"""
 		return itertools.product(*[range(self.board_dimensions[dim]) for dim in xrange(len(self.board_dimensions))])
 
 	def get_adjacent_points(self, point):
@@ -243,7 +243,7 @@ class MinesweeperGame:
 
 		if self.is_over:
 			raise GameOverException
-		
+
 		if self.is_revealed(point):
 			return
 
