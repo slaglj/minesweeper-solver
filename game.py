@@ -1,7 +1,6 @@
 # The code to run and display a game of Minesweeper
 # Jacob C. Slagle, 2018
 
-import sets
 import itertools
 
 class GameOverException(Exception):
@@ -41,15 +40,23 @@ class MinesweeperGame:
 			mine or an empty square with a number hint
 	"""
 
-	def __init__(self, board_dimensions):
-		self.is_over = False
-		self.mines_placed = False
-
-		# boardDimensions is a tuple of board dimensions, 
+	def __init__(self, board_dimensions = (8,8), mines = None, num_mines = -1):
+                
+                # boardDimensions is a tuple of board dimensions, 
 		# usually of length two, i.e. (length, width). However, we allow the
 		# possiblity of 3-dimensional or n-dimensional games of minesweeper
 		self.board_dimensions = board_dimensions
-		
+
+		self.mines = mines
+		self.num_mines = num_mines
+                if not self.mines and self.num_mines < 0:
+                        from numpy import prod
+                        self.num_mines = int(prod(self.board_dimensions)/5)
+
+                
+		self.is_over = False
+		self.mines_placed = False
+
 		# grid is the game board, initially just an array of Squares, each
 		# of which has default values for members
 		self.grid = self._build_grid(0)
@@ -95,8 +102,7 @@ class MinesweeperGame:
 		coordinate_ranges = [] 
 		for dim in range(len(self.board_dimensions)):
 			# make sure ranges lie within game board
-			coordinate_range = range(max(0,point[dim] - 1),
-									 min(point[dim] + 2, self.board_dimensions[dim]))
+			coordinate_range = range(max(0,point[dim] - 1), min(point[dim] + 2, self.board_dimensions[dim]))
 			coordinate_ranges.append(coordinate_range)
 
 		# Take the cartesian product of the coordinate ranges, put it in a list.
@@ -115,27 +121,12 @@ class MinesweeperGame:
 		return cross_section
 
 
-	def place_mines(self, mines = None, num_mines = 0, first_move = None):
-		""" Place mines on game board, update adjacent squares with numbers
-
-		Keyword arguments:
-			mines (iterable) -- an optional collection of points at which to place mines
-			num_mines (int) -- number of mines to be placed (0 <= num_mines < board spaces)
-			first_move (tuple) -- an optional point where no mines are to be placed
-
-		Either mines or num_mines must be supplied by the caller. If
-		mines is used (!= None), num_mines and first_move will be ignored. 
-		If mines is not supplied, num_mines points on the board will be randomly 
-		selected as mines and if first_move != None, none of those mines will be 
-		placed at the point given by first_move. 
-		"""
-
-		if mines == None:
+	def _place_mines(self,first_move = None):
+		if self.mines == None:
 			from random import randint
-			from sets import Set
 
-			mines = Set([])
-			while len(mines) < num_mines:
+			self.mines = set([])
+			while len(self.mines) < self.num_mines:
 				# rpoint is a random point on the board
 				rpoint = tuple([randint(0, self.board_dimensions[dim] - 1) 
 								for dim in xrange(len(self.board_dimensions))])
@@ -241,6 +232,14 @@ class MinesweeperGame:
 			GameOverException -- raised if the game is already over
 		"""
 
+		if square.is_flagged:
+			# Don't allow player to reveal flagged mines
+			return
+
+                if not self.mines_placed:
+                        self._place_mines(first_move = point)
+                        self.mines_place = True
+                        
 		if self.is_over:
 			raise GameOverException
 
@@ -249,10 +248,6 @@ class MinesweeperGame:
 
 		square = self._get_square(point)
 		square.is_revealed = True
-
-		if square.is_flagged:
-			# Don't allow player to reveal flagged mines
-			return
 
 		if square.contains_mine:
 			# End the game.
