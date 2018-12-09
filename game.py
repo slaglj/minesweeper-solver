@@ -42,16 +42,17 @@ class MinesweeperGame:
 
 	def __init__(self, board_dimensions = (8,8), mines = None, num_mines = -1):
                 
-                # boardDimensions is a tuple of board dimensions, 
+        # boardDimensions is a tuple of board dimensions, 
 		# usually of length two, i.e. (length, width). However, we allow the
 		# possiblity of 3-dimensional or n-dimensional games of minesweeper
 		self.board_dimensions = board_dimensions
 
 		self.mines = mines
 		self.num_mines = num_mines
-                if not self.mines and self.num_mines < 0:
-                        from numpy import prod
-                        self.num_mines = int(prod(self.board_dimensions)/5)
+		if not self.mines and self.num_mines < 0:
+                        from operator import mul
+                        from functools import reduce
+                        self.num_mines = int(reduce(mul,self.board_dimensions)/5)
 
                 
 		self.is_over = False
@@ -63,16 +64,16 @@ class MinesweeperGame:
 
 		
 	def _build_grid(self, dim):
-		if dim == len(self.board_dimensions):
-    			return self.Square()
 		# Build a game board, i.e. an n-dimensional array of Squares
 		# where n == len(self.board_dimensions) and the dimensions are given 
 		# by self.board_dimensions
 		#
 		# Squares are created with default values, to be updated by 
 		# _place_mines
-		
-		return [self._build_grid(dim+1) for _ in xrange(self.board_dimensions[dim])]
+		if dim == len(self.board_dimensions):
+    			return self.Square()
+    		
+		return [self._build_grid(dim+1) for _ in range(self.board_dimensions[dim])]
 
 	# A Square is an object representing one square in a minesweeper grid.  It
 	# simply packages all data relevant to one coordinate in a single object.
@@ -87,7 +88,7 @@ class MinesweeperGame:
 		
 	def board_iterator(self):
 		"""Return an iterator going over all points on the game board"""
-		return itertools.product(*[range(self.board_dimensions[dim]) for dim in xrange(len(self.board_dimensions))])
+		return itertools.product(*[range(self.board_dimensions[dim]) for dim in range(len(self.board_dimensions))])
 
 	def get_adjacent_points(self, point):
 		"""Return all coordinate points adjacent (or diagonally adjacent) to a point on game board
@@ -115,26 +116,32 @@ class MinesweeperGame:
 	def _get_square(self, point):
 		cross_section = self.grid
 
-		for dim in xrange(len(self.board_dimensions)):
+		for dim in range(len(self.board_dimensions)):
 			cross_section = cross_section[point[dim]]
 
 		return cross_section
 
+	def random_point(self):
+		"""Return a random point on the board"""
+		from random import randint
+		return tuple([randint(0, self.board_dimensions[dim] - 1) for dim in range(len(self.board_dimensions))])
 
 	def _place_mines(self,first_move = None):
-		if self.mines == None:
-			from random import randint
+		if not self.mines:
+			
+			# freebies are the spaces adjacent to first_move where no mines should be placed
+			freebies = set(self.get_adjacent_points(first_move))
+			freebies.add(first_move)
 
 			self.mines = set([])
 			while len(self.mines) < self.num_mines:
 				# rpoint is a random point on the board
-				rpoint = tuple([randint(0, self.board_dimensions[dim] - 1) 
-								for dim in xrange(len(self.board_dimensions))])
+				rpoint = self.random_point()
 
-				if (first_move == None) or (rpoint != first_move):
-					mines.add(rpoint)
+				if (first_move == None) or rpoint not in freebies:
+					self.mines.add(rpoint)
 
-		for mine in mines:
+		for mine in self.mines:
 			square = self._get_square(mine)
 			square.contains_mine = True
 
@@ -231,18 +238,17 @@ class MinesweeperGame:
 		Raises:
 			GameOverException -- raised if the game is already over
 		"""
-
-		if square.is_flagged:
-			# Don't allow player to reveal flagged mines
-			return
-
-                if not self.mines_placed:
-                        self._place_mines(first_move = point)
-                        self.mines_place = True
-                        
 		if self.is_over:
 			raise GameOverException
 
+		if self.is_flagged(point):
+			# Don't allow player to reveal flagged mines
+			return 
+
+		if not self.mines_placed:
+			self._place_mines(first_move = point)
+			self.mines_placed = True
+                        
 		if self.is_revealed(point):
 			return
 
