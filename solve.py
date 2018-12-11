@@ -1,4 +1,5 @@
 import itertools
+import game
 
 class ExhaustiveSolver:
 
@@ -13,11 +14,11 @@ class ExhaustiveSolver:
 
         self.game.reveal_square(self.game.random_point())
 
-        print("Initial game (after random first move):")
+        print('Initial game (after random first move):')
         display.display_game()
         self.solve()
 
-        while(not self.game.is_over and (self.known_mines or self.known_free)):
+        while(self.known_mines or self.known_free):
                 display.reset_known(mines = self.known_mines, free = self.known_free)
                 display.display_game()
                 display.reset_known()
@@ -41,6 +42,8 @@ class ExhaustiveSolver:
 
                 self.solve()
 
+        print('The algorithm didn\'t find any more solutions')
+
         display.display_game()
                     
 
@@ -56,8 +59,8 @@ class ExhaustiveSolver:
                                 self.fringe.append(point)
                                 in_play |= in_play_neighbs
 
-        self.known_mines = set([])
-        self.known_free = set([])
+        self.known_mines = in_play
+        self.known_free = in_play.copy()
         
         self._solve(0,set([]),set([]))
 
@@ -90,7 +93,7 @@ class ExhaustiveSolver:
                 
                 # we must subtract the proposed_free point because they are
                 # to be revealed (tentatively)
-                in_play_neighbs = self._in_play_neighbors(point) - proposed_free
+                in_play_neighbs = self._in_play_neighbors(point) - proposed_free - proposed_mines
 
                 if len(in_play_neighbs) < num_needed:
                     return
