@@ -1,13 +1,16 @@
 import itertools
 import game
 
-class ExhaustiveSolver:
+class AbstractSolver:
 
     def __init__(self,game):
         self.game = game
         self.fringe = []
         self.known_mines = set([])
         self.known_free = set([])
+
+    def solve(self):
+        raise NotImplementedError('solve not implemented in AbstractSolver')
 
     def show_algorithm(self,displayClass):
         display = displayClass(self.game)
@@ -45,9 +48,8 @@ class ExhaustiveSolver:
         print('The algorithm didn\'t find any more solutions')
 
         display.display_game()
-                    
 
-    def solve(self):
+    def _store_fringe_and_return_in_play(self):
         self.fringe = []
         in_play = set([])
         
@@ -59,9 +61,61 @@ class ExhaustiveSolver:
                                 self.fringe.append(point)
                                 in_play |= in_play_neighbs
 
+        return in_play
+
+    def _in_play_neighbors(self,point):
+        return {neighb for neighb
+            in self.game.get_adjacent_points(point)
+            if not self.game.is_revealed(neighb)
+            and not self.game.is_flagged(neighb)}
+
+
+# NOTE: Copying and pasting the powerset recipe from the python docs for itertools
+# https://docs.python.org/3/library/itertools.html
+
+def powerset(iterable):
+    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
+    
+    # added import
+    from itertools import combinations, chain
+    
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+
+class BruteSolver(AbstractSolver):
+
+    def solve(self):
+        in_play = self._store_fringe_and_return_in_play()
+        self.known_mines = set(in_play)
+        self.known_free = set(in_play)
+
+        for mine_placement in powerset(in_play):
+            if self._is_valid_mine_placement(mine_placement):
+                print(mine_placement)
+                print('is valid')
+                self.known_mines.intersection_update(mine_placement)
+                self.known_free.difference_update(mine_placement)
+
+
+
+    def _is_valid_mine_placement(self,mines):
+        for point in self.fringe:
+            num_mines_proposed = len([neighb for neighb
+                                      in self.game.get_adjacent_points(point)
+                                      if neighb in mines
+                                      or self.game.is_flagged(neighb)])
+
+            if num_mines_proposed != self.game.num_mines_surrounding(point):
+                return False
+
+        return True
+
+class ExhaustiveSolver(AbstractSolver):              
+
+    def solve(self):
+        in_play = self._store_fringe_and_return_in_play()
         self.known_mines = in_play
         self.known_free = in_play.copy()
-        
         self._solve(0,set([]),set([]))
 
     def _solve(self,fringe_index,proposed_mines,proposed_free):
@@ -74,7 +128,6 @@ class ExhaustiveSolver:
                 # At this point proposed_mines is a valid placement of mines about the fringe
                 # thus, we can narrow down known_mines to include only proposed_mines (if any)
 
-                # TODO: consider edge cases, i.e. no valid placement of mines/blanks?
                 self.known_mines &= proposed_mines
                 self.known_free &= proposed_free
         else:
@@ -88,12 +141,12 @@ class ExhaustiveSolver:
                 
                 num_needed = self.game.num_mines_surrounding(point) - num_mines
 
-                if(num_needed < 0):
-                    return
+                #if(num_needed < 0):
+                #    return
                 
                 # we must subtract the proposed_free point because they are
                 # to be revealed (tentatively)
-                in_play_neighbs = self._in_play_neighbors(point) - proposed_free - proposed_mines
+                in_play_neighbs = (self._in_play_neighbors(point) - proposed_free) - proposed_mines
 
                 if len(in_play_neighbs) < num_needed:
                     return
@@ -109,12 +162,6 @@ class ExhaustiveSolver:
 
                     proposed_mines -= added_mines
                     proposed_free -= added_free
-
-    def _in_play_neighbors(self,point):
-        return {neighb for neighb
-            in self.game.get_adjacent_points(point)
-            if not self.game.is_revealed(neighb)
-            and not self.game.is_flagged(neighb)}
 
 
 
