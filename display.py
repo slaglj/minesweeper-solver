@@ -65,20 +65,6 @@ class Minesweeper2dConsoleDisplay():
 		else:
 			return str(self.game.num_mines_surrounding(point))
 
-	def reveal_square(self,x,y):
-		try:
-			self.game.reveal_square((x,y))
-			self.display_game()
-		except game.GameOverException:
-			print('The game is over!')
-
-	def place_flag(self,x,y):
-		try:
-			self.game.place_flag((x,y))
-			self.display_game()
-		except game.GameOverException:
-			print('The game is over!')
-
 
 
 
