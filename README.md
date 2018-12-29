@@ -1,1 +1,1 @@
-# minesweeper-solver
+# minesweeper_solver
