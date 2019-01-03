@@ -2,6 +2,7 @@
 # Jacob C. Slagle, 2018
 
 import itertools
+import collections 
 
 class GameOverException(Exception):
 	pass
@@ -20,22 +21,6 @@ class MinesweeperGame:
 	A MinesweeperGame object tracks the state of a game of Minesweeper
 
 	Methods:
-		board_iterator: Return an iterator over all points on the game board
-
-		neighbors: Return list of all points adjacent to a given point.
-
-		place_mines: Place mines on the game board after game. Should be
-			called shortly after game is instantiated
-
-		is_flagged: Indicate whether a given point on the board is flagged
-			for a mine
-
-		place_flag: place a flag at a given point if not already flagged
-
-		remove_flag: remove a flag from a given point if flagged
-
-		reveal: select a point on the board to reveal either a
-			mine or an empty square with a number hint
 	"""
 	#------------------------------------------------------------------------#
 	# The following moves implement the moves a player can make, i.e. things #
@@ -53,7 +38,13 @@ class MinesweeperGame:
 		"""
 		if self.is_over:
 			raise GameOverException
-		self._get_square(point).is_flagged = True
+
+		square = self._get_square(point)
+		if not square.is_flagged:
+			square.is_flagged = True
+
+			for buf in self.move_buffers:
+				buf.append(('flag',point))
 
 	def remove_flag(self, point):
 		"""Remove flag from point whether or not there already was a flag 
@@ -67,7 +58,12 @@ class MinesweeperGame:
 		"""
 		if self.is_over:
 			raise GameOverException
-		self._get_square(point).is_flagged = False
+		square = self._get_square(point)
+		if square.is_flagged:
+			square.is_flagged = False
+
+			for buf in self.move_buffers:
+				buf.append(('unflag',point))
 
 	def reveal(self, point):
 		"""Reveal the square at the given point
@@ -94,6 +90,11 @@ class MinesweeperGame:
 
 		square = self._get_square(point)
 		square.is_revealed = True
+
+		for buf in self.move_buffers:
+			buf.append(('reveal',point))
+
+
 		self.num_revealed += 1
 
 		if square.contains_mine:
@@ -201,7 +202,7 @@ class MinesweeperGame:
 			coordinate_ranges.append(coordinate_range)
 
 		# Take the cartesian product of the coordinate ranges, put it in a list.
-		is_not_point = lambda otherpoint: otherpoint != point
+		is_not_point = lambda x: x != point
 		return filter(is_not_point,itertools.product(*coordinate_ranges))
 
 	def flagged_neighbors(self,point):
@@ -211,13 +212,22 @@ class MinesweeperGame:
 		return filter(self.is_revealed,self.neighbors(point))
 
 	def blank_neighbors(self,point):
-		is_blank = lambda p: not self.is_flagged(p) and not self.is_revealed(p)
+		is_blank = lambda x: not self.is_flagged(x) and not self.is_revealed(x)
 		return filter(is_blank,self.neighbors(point))
 
 	def random_point(self):
 		"""Return a random point on the board"""
 		from random import randint
 		return tuple([randint(0, self.board_dimensions[dim] - 1) for dim in range(len(self.board_dimensions))])
+
+	#------------------------------------------------------------------------#
+	# Method to facilitate "watching" game progress                          #
+	#------------------------------------------------------------------------#
+
+	def add_move_buffer(self):
+		new_buffer = collections.deque()
+		self.move_buffers.append(new_buffer)
+		return new_buffer
 
 	#------------------------------------------------------------------------#
 	# Non-public methods                                                     #
@@ -249,6 +259,8 @@ class MinesweeperGame:
 		self.is_over = False
 		self.num_flags = 0
 		self.num_revealed = 0
+
+		self.move_buffers = []
 
 		# grid is the game board, initially just an array of Squares, each
 		# of which has default values for members
@@ -288,15 +300,15 @@ class MinesweeperGame:
 			
 			# freebies are the spaces adjacent to first_move where no mines should be placed
 			# i.e. "freebie" spaces given to the player
-			freebies = set(self.neighbors(first_move))
-			freebies.add(first_move)
+			if first_move:
+				freebies = set(self.neighbors(first_move))
+				freebies.add(first_move)
 
 			self.mines = set([])
 			while len(self.mines) < self.num_mines:
-				# rpoint is a random point on the board
 				rpoint = self.random_point()
 
-				if (first_move == None) or rpoint not in freebies:
+				if rpoint not in freebies:
 					self.mines.add(rpoint)
 
 		for mine in self.mines:
