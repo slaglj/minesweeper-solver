@@ -23,12 +23,14 @@ class MinesweeperGame:
 	Methods:
 	"""
 	#------------------------------------------------------------------------#
-	# The following moves implement the moves a player can make, i.e. things #
-	# they can do to change the state of the game.                           #
+	# The following methods implement the moves a player can make, i.e.      #
+	# things they can do to change the state of the game.                    #
 	#------------------------------------------------------------------------#
 
 	def place_flag(self, point):
 		"""Place flag at point
+
+		Do nothing if there already is a flag at point
 
 		Args:
 			point (tuple of ints) -- coordinate point on the game board
@@ -47,8 +49,9 @@ class MinesweeperGame:
 				buf.append(('flag',point))
 
 	def remove_flag(self, point):
-		"""Remove flag from point whether or not there already was a flag 
-		there
+		"""Remove flag from point
+
+		Does nothing if there was no flag at point
 
 		Args:
 			point (tuple of ints) -- coordinate point on the game board
@@ -178,7 +181,7 @@ class MinesweeperGame:
 
 	#------------------------------------------------------------------------#
 	# The following methods return iterators over certain subsets of the     #
-	# board, or just one point in the case of random_point                   #
+	# board, the exception being random_point which returns just one point.  #
 	#------------------------------------------------------------------------#
 	
 	def board_iterator(self):
@@ -300,6 +303,7 @@ class MinesweeperGame:
 			
 			# freebies are the spaces adjacent to first_move where no mines should be placed
 			# i.e. "freebie" spaces given to the player
+			freebies = set([])
 			if first_move:
 				freebies = set(self.neighbors(first_move))
 				freebies.add(first_move)
