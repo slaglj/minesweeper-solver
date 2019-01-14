@@ -1,5 +1,5 @@
 import itertools
-import game
+import game as gamemodule
 
 
 
@@ -7,7 +7,8 @@ def show_algorithm(game,solverClass,displayClass):
     solver = solverClass(game)
     display = displayClass(game)
 
-    game.reveal(game.random_point())
+    if game.num_revealed < 1:
+        game.reveal(game.random_point())
 
     print('Initial game (after random first move):')
     display.display_game()
@@ -28,11 +29,11 @@ def show_algorithm(game,solverClass,displayClass):
                 for free in known_free:
                     game.reveal(free)
 
-            except(game.GameWonException):
+            except(gamemodule.GameWonException):
                 print('Success! The solver beat the game.')
                 display.display_game()
                 return
-            except(game.GameOverException):
+            except(gamemodule.GameOverException):
                 print('The game is over.')
 
             display.display_game()
@@ -80,7 +81,7 @@ class BruteSolver():
         for point in self.game.board_iterator():
             if is_fringe_point(self.game,point):
                 self.fringe.add(point)
-                self.in_play.update(self.game.blank_neighbors)
+                self.in_play.update(self.game.blank_neighbors(point))
 
         self.move_buffer = self.game.add_move_buffer()
 
@@ -143,7 +144,7 @@ class BruteSolver():
                 self.in_play.add(point)
                 self.fringe.update(self.game.revealed_neighbors(point))
 
-class ExhaustiveSolver():
+class ExhaustiveSolver(BruteSolver):
 
     def _valid_mine_placement_generator(self):
         yield from self._vmpg_helper(list(self.fringe),0,set([]),set([]))
@@ -259,7 +260,7 @@ class HumanSolver():
                 if inter_min_mines == num_mines2:
                     new_free.extend(in_play2 - intersection)
 
-        return(new_mines,new_free)
+        return (new_mines,new_free)
 
     def _update_solver_with_all_moves(self):
         while self.move_buffer:

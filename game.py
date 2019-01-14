@@ -245,11 +245,16 @@ class MinesweeperGame:
 		from functools import reduce
 		num_squares = reduce(mul,self.board_dimensions)
 
+		# grid is the game board, initially just an array of Squares, each
+		# of which has default values for members
+		self.grid = self._build_grid(0)
+
 		self.mines = mines
 
 		if self.mines:
 			self.mines = set(mines)
 			self.num_mines = len(mines)
+			self._place_mines()
 			self.mines_placed = True
 		else:
 			self.num_mines = num_mines
@@ -260,14 +265,11 @@ class MinesweeperGame:
 		self.num_free = num_squares - self.num_mines
 
 		self.is_over = False
-		self.num_flags = 0
 		self.num_revealed = 0
 
 		self.move_buffers = []
 
-		# grid is the game board, initially just an array of Squares, each
-		# of which has default values for members
-		self.grid = self._build_grid(0)
+		
 
 	def _build_grid(self, dim):
 		# Build a game board, i.e. an n-dimensional array of Squares
