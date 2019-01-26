@@ -9,7 +9,8 @@
 \newtheorem{algorithm}{Algorithm}
 
 \theoremstyle{theorem}
-\newtheorem*{claim}{Claim}
+\newtheorem{claim}{Claim}
+\newtheorem*{lemma}{Lemma}
 
 \title{Minesweeper Solver Analysis}
 \author{Jacob Slagle}
@@ -29,11 +30,13 @@
 	\section*{Theory and Algorithms}
 	Here I use the pronoun "we" as in formal mathematics.
 	
-	As a starting point we consider what exactly it means to beat a game of minesweeper. To win we must place flags on exactly those squares which contain mines and reveal the rest of the squares- in other words we must find the right "placement" of flags on the board. Now suppose we are playing a particular game and furthermore we are looking at a freeze frame of the game where some of the squares are revealed. The revealed squares in this frame contain numbers which tell us how many mines are adjacent to it. Since we aim to place flags on mines and only mines, these number hints are constraints on the way flags can be placed. With an eye towards satisfying these constraints, we make the following definition:
+	As a starting point we consider what exactly it means to beat a game of minesweeper. To win we must place flags on exactly those squares which contain mines and reveal the rest of the squares- in other words we must find the right "placement" of flags on the board. To be slightly more formal, a \textbf{placement} is a subset squares on the board which are neither revealed nor flagged where we are considering placing flags (perhaps in addition to the flags already on the board). Now suppose we are playing a particular game and furthermore we are looking at a freeze frame of the game where some of the squares are revealed and perhaps some squares are flagged. The revealed squares in this frame contain numbers which tell us how many mines are adjacent to it. Since we aim to place flags on mines and only mines, these number hints are constraints on the way flags can be placed (we already placed on the board are correctly placed). With an eye towards satisfying these constraints, we make the following definition:
 	\begin{definition}
-		A placement is \textbf{satisfactory} if every revealed square $s$, the number hint $h$ in $s$ is equal to the number of flags surrounding $s$.
+		A placement is \textbf{satisfactory} if after placing all flags in it we have this property: for every revealed square $s$, the number hint $h$ in $s$ is equal to the number of flags surrounding $s$.
 	\end{definition}
-	Observe that the correct placement of flags on mines is itself a satisfactory placement. It follows that if a square is flagged in \textit{every} satisfactory placement, it must contain a mine. Therefore we say placing a flag on such a square is a \textbf{certain flag} (a flag placed with certainty). Likewise, if a square is \textit{unflagged} in every mine placement, we know it must be free (i.e. it does not contain a mine). Thus we say revealing is a \textbf{certain reveal}. A \textbf{certain move} is a certain flag or a certain reveal. Consider the value of a certian move over an uncertain move: if a reveal is uncertain, there are satisfactory placements in which the revealed square contains a mine, and if one of those satisfactory placements is the actual mine placement then revealing the square loses the game. Uncertain flags, while not immediately fatal, can lead to errors down the line. Hence we only want to make certain moves. This line of reasoning lends itself to an algorithm idea: generate all satisfactory placements, check which squares are consistently flagged or unflagged across each placement and make certain moves accordingly. Let's assume for the moment we have a function satisfactoryPlacemnts($G$) which takes a game of minesweeper $G$ and generates all satisfactory placements.
+	Observe that the correct placement of flags on mines is itself a satisfactory placement. It follows that if a square is flagged in \textit{every} satisfactory placement, it must contain a mine. Therefore we say placing a flag on such a square is a \textbf{certain flag} (a flag placed with certainty). Likewise, if a square is \textit{unflagged} in every mine placement, we know it must be free (i.e. it does not contain a mine). Thus we say revealing is a \textbf{certain reveal}. A \textbf{certain move} is a certain flag or a certain reveal. Consider the value of a certian move over an uncertain move: in playing Minesweeper, we do not know where the mines are but we can figure out what the satisfactory placements by looking at number hints, and so can deduce certain moves. Moreover we really \textit{have} to resort to looking only at certain moves because if a reveal is uncertain, there are satisfactory placements in which the revealed square contains a mine, and if one of those satisfactory placements is the actual mine placement then revealing the square loses the game. Uncertain flags, while not immediately fatal, can lead to errors down the line. Hence we only want to make certain moves. 
+	
+	This line of reasoning lends itself to an algorithm idea: generate all satisfactory placements, check which squares are consistently flagged or unflagged across each placement and make certain moves accordingly. Let's assume for the moment we have a function satisfactoryPlacemnts($G$) which takes a game of minesweeper $G$ and generates all satisfactory placements.
 	
 	\begin{algorithmic}
 		\Function{Solve}{$G$} \Comment Version 1
@@ -60,14 +63,51 @@
 		\EndFunction
 	\end{algorithmic}
 	
-	This method checks $|\mathcal{P}(B)| = 2^{|B|}$ placements. We can check if a placement is satisfactory in linear time, and since the placements are bound by the board in size, we have that satisfactoryPlacements() has an $O(|B|2^{|B|})$ runtime. The other parts of solve(). The other work in solve is relatively insignificant and so this also the runtime for solve. If you've ever played minesweeper though it might occur to you that there's unnecessary about looking at the entire board, since in a sense we only have information about the unrevealed squares which are adjacent to numbered squares. In sense these are the only squares we can really do anything with. We state this formally with the following claim:
-	\begin{claim}
-		If a square is not adjacent to a revealed square, it is not a certain move.
-	\end{claim}
+	This method checks $|\mathcal{P}(B)| = 2^{b}$ placements, where $b = |B|$ is the size of the board. We can check if a placement is satisfactory in linear time, and since the placements are bound by the board in size, we have that satisfactoryPlacements() has an $O(b2^{b|})$ runtime. The other parts of solve(). The other work in solve is relatively insignificant and so this also the runtime for solve. If you've ever played minesweeper though it might occur to you that it's unecessary to look at the entire board, since in a sense we only have information about the unrevealed squares which are adjacent to numbered squares. With this in mind we make the following definitions: a square is \textbf{in-play} if (in the frame in question) it is unrevealed and unflagged and adjacent to a revealed square. We will refer to all in-play squares collectively as the \textbf{perimiter} because they circumscribe the revealed part of the board.
+	
+	\begin{lemma}
+		If $S$ is a satisfactory placement and $P$ is the perimiter,  then $S' = S \cap P$ is also a satisfactory placement.
+	\end{lemma}
+
 	\begin{proof}
-		Suppose $s$ is a square not adjacent to any revealed square. Choose a satisfactory placement $P$- for instance $P$ could be the actual mine placement . Set $P_1 = P - \{s\}$ and $P_2 = P \cup \{s\}$. Because $s$ is not adjacent to any revealed squares, $P_1$ contains the same number of flags around each revealed square as $P$ does and so $P_1$ is also a satisfactory placement. By the same token, $P_2$ is a satisfactory placement. Because $P_1$ is a satisfactory placement that does not contain $s$, $s$ is not a certain flag. Because $P_2$ is a satisfactory placement that contains $s$, $s$ is not a certain reveal.
+		Let $r$ be a revealed square. All the flags in $S$ adjacent to $r$ are also in $S' = P \cap S$ because the perimiter $P$ contains all the in-play squares in the current frame. In particular $r$ has the same number of flags adjacent to it in $P'$ as in $P$. This goes for each revealed square $r$, so $S'$ like $S$ is a satisfactory placement.
 	\end{proof}
-	We only want to "play" on squares that have the potential to be certian moves, and so with the above claim in mind we say a square is \textbf{in-play} if it is unrevealed and adjacent to a revealed square. We will refer to all in-play squares collectively as the \textbf{perimiter} because they circumscribe the revealed part of the board.We adapt the above algorithm simply by substituting perimiter wherever game board was before. This version of the algorithm yields the same result, but we will not bother with the details of the proof.
+	\begin{claim}
+		
+		
+		\begin{enumerate}
+		
+		\item
+		A flag is certain if and only if it occurs in each satisfactory placement contained within the perimiter. Additionally, certain flags always occur within the perimiter
+		
+		\item
+		A reveal is certain if and only if it is in the perimiter and the space to be revealed is unflagged in each satisfactory placement contained within the perimiter.
+		
+		\item
+		Certain moves occur only in the perimiter of the board.
+		\end{enumerate}
+	\end{claim}
+
+	\begin{proof}
+	\begin{enumerate}
+		\item
+		If a flag is certain if it is contained in every satisfactory placement, in particular it is a part of the satisfactory placements contained within the perimiter. Conversely, suppose $s$ is a space that is flagged in every satisfactory placement that is contained within the perimiter. Let $S$ be an arbitrary satisfactory placement. Set $S'$ be the intersection of $S$ and the perimiter. By the lemma, $S'$ is also satisfactory, and so by our hypothesis,  $s \in S'$. Of course $S' \subset S$, and so $s \in S$. Thus $s$ is in every satisfactory placement $S$, meaning $s$ is a certain flag. This proves the iff statement. 
+		
+		To prove that all certain flags are in the perimiter let $M$ be the actual mine placement, which is satisfactory (for the purposes of this proof $M$ could be any satisfactory mine placement). By the lemma $M'$, the intersection of $M$ and the perimiter is satisfactory.By the definition of certain, all certain flags are in $M'$ which is  in the perimiter.
+		
+		\item
+		Suppose $s$ is a certain reveal. By definition then, $s$ is not contained in any satisfactory mine placement, in particular those contained within the perimiter. Suppose for contradiction $s$ was not in the perimiter. Let $M$ be the actual mine placement (or any satisfactory mine placement for that matter), and set $M' = M \cup \{s\}$. Since $s$ is not in the perimiter it is not in play meaning that adding it to a placement would not change the number of flags around any revealed square. In particular adding it to $M$ would yield a placement $M' = M \cup \{s\}$ which had the same flag counts around each revealed square, i.e. another satisfactory placement. Thus $s$ is in a satisfactory placement $M'$, which is a contradiction because $s$ is a certain reveal.
+		
+		Conversely, suppose $s$ is in the perimiter and is unflagged in each satisfactory placemnt contained within the perimiter. Let $S$ be a satisfactory placement, and let $S'$ be it's intersection with the perimiter. By the lemma, $S'$ is a satisfactory placement, and so by out hypothesis $s \notin S'$. But since  $s$ is in the perimiter and $S'$ is the intersection of $S$ with the perimiter, the only way $s \notin S'$ is if $s \notin S$. This shows that $s$ is contained in no satisfactory placement and so by definition $s$ is a certain reveal.
+		
+		\item
+		This statement follows immediately from the first two.
+		
+		
+	\end{enumerate}
+	\end{proof}
+
+	This claim shows us that our algorithm need only focus on the perimiter as opposed to the whole board. That is, we can initialize mines and free to be just the perimiter and we only need to generate satisfactory placements that are contained within the perimiter. Here are the revisde versions of solve() and satisfactoryPlacements():
 	
 	\begin{algorithmic}
 		\Function{Solve}{$G$} \Comment Version 2
@@ -83,7 +123,7 @@
 	\end{algorithmic}
 	
 	\begin{algorithmic}
-		\Function{satisfactoryPlacements}{$G$} \Comment Version 2
+		\Function{SatisfactoryPlacements}{$G$} \Comment Version 2
 		\For{$P$ in $\mathcal{P}$(perimiter($G$))}
 		\If{$P$ is satisfactory}
 		\State \textbf{yield} $P$
@@ -92,7 +132,64 @@
 		\EndFunction
 	\end{algorithmic}
 	
-	This reduces the runtime to $O(|Per||2^{|Per|})$ where of course $Per$ is the perimiter. While this is still exponential, the perimiter is \textit{much} smaller than the board except in pathological cases. In practice though (i.e. when using the the algorithms outlined here), the revealed part of the board is a 2-dimensional contiguous blob and so it's perimiter is 1-dimensional. Waving our hands, we might say the perimiter is roughly bounded by, say, four times the square root of the board size. This makes a huge difference given that it acts as an exponent in the runtime
+	This reduces the runtime to $O(b2^{p})$ where $b$ is the size of the board as before and $p$ is the size of the perimiter. While this is still exponential, the perimiter is \textit{much} smaller than the board except in pathological cases. In practice though (e.g. when using the the algorithms outlined in this document), the revealed part of the board is a 2-dimensional contiguous "blob" and so gives rise to a 1-dimensional perimiter. This makes a huge difference given that it acts as an exponent in the runtime.
+	
+	It still seems like unecessary work is being done. Even when we restrict our attention to the perimiter, it seems like we're doing exta work when we go back and check if a placement is satisfactory- after all this is where the linear factor $b$ in $O(b2^{p})$ comes from. What if rather than looking at every placement, we "built up" satisfactory placements according to the hints on the board. If we do it correctly we don't have to check that it we are getting exactly the satisfactory placements. We introduce another term: the \textbf{fringe} consists of all revealed squares (numbers) with at least one adjacent square that is neither revealed nor flagged. Note the distinction between the fringe and the perimiter: the fringe consists of the edge (or edges), of the revealed part(s) of the board, while the perimiter is unrevealed and wraps around the fringe. Functionally speaking the fringe contains all the hints on the board that have yet to be satisfied, and as such is our focus if we are building up satisfactory placements.
+	
+	The core of the algorithm is to look at a point in the fringe and add the appopriate number of flags around it to satisfy it. There are usually multiple ways to add the appropriate number of flags, so we choose one  way and proceed to the next point, doing the same with this point. We continue in this manner until we have a satisfactory placement, which we then yield. We then backtrack an consider other ways of adding flags around points. We now present the pseudocode.
+	
+	\begin{algorithmic}
+		\Function{SatisfactoryPlacements}{$G$} \Comment Version 3
+		\State SPHelper($G,0, \emptyset$)
+		\EndFunction
+		
+		\Function{SPHelper}{$G,i,placement$}
+		\If{$i =$ length($G.fringe$) } \Comment recursion base case
+		\State \textbf{yield} $placement$
+		\EndIf
+		\State $point \gets G.fringe[i]$ \Comment Get the $i$th point in the fringe
+		\If{$point$ has too many flags around it when including those in $placement$}
+		\State return \Comment Go back up one level of the call stack
+		\ElsIf{$point$ already has the right number of flags around it}
+		\State SPHelper($G, i+1, placement$)
+		\Else
+		\ForAll{sets of flags $newFlags$ that can be added to satisfy $point$ without adding flags around $G.fringe[0], G.fringe[1]$,...,$G.fringe[i-1]$}
+		\State $placement \gets placement \cup newFlags$
+		\State SPHelper($G, i+1, placement$)
+		\State $placement \gets placement - newFlags$
+		\EndFor
+		\EndIf
+		
+		\EndFunction
+	\end{algorithmic}
+
+	\begin{claim}
+		The above version of SatisfactoryPlacements() yields exactly those satisfactory placements contained within the perimiter.
+	\end{claim}
+	\begin{proof}
+		The perimiter is just the union of all in-play squares adjacent to points in the fringe, so we might rephrase the claim as SatisfactoryPlacements() yields exactly those satisfactory placements that contain only flags adjacent to points in the fringe. Now consider the following propositions which depends on the variable $k$.
+		
+		\bigskip
+		OnlySatisfactory($k$): Whenever a call of the form SPHelper($G,k,placement$) is made, which is to say a call with $i = k$, then the variable $placement$ is a placement that satisfies the points $G.fringe[0],...,G.fringe[k-1]$
+	
+		\bigskip
+		 AllSatisfactory($k$): Each placement which (a) satisfies the points $G.fringe[0]$, ...,$G.fringe[i-1]$ and (b) contains only flags adjacent to $G.fringe[0], ..., G.fringe[i-1]$ is stored in the variable $placement$ at the beginning of one of the function calls of the form SPHelper($G,k,placement$)
+		 
+		 \bigskip
+		 The statement OnlySatisfactory(length($G.fringe$)) should be interpreted as follows: when the base case of the recursion is entered (because $i$ equals length($G.fringe$)) the $placement$ variable contains a satisfactory placement because all points in $G.fringe$ are satisfied, and thus the placement that's yielded is satisfactory. The statement AllSatisfactory(length($G.fringe$)) guarantees  that all satisfactory placements contained within the perimiter are yielded. Together these statements tell us that SatisfactoryPlacements() yields exactly those satisfactory placements contained within the perimiter. We prove them by induction.
+		 
+		There are no points to be satisfied in base case ($k = 0$), so OnlySatisfactory(0) is trivial. recursive calls are made with strictly ascending values of $i$, so SPHelper() is only called once with $i = 0$ once and in this  case $placement = \emptyset$. Indeed $\emptyset$ is the only placement which satisfies conditions (a) and (b) in AllSatisfactory(0)
+		
+		Now suppose OnlySatisfactory($k$) is true. Calls of the form SPHelper($G,k+1,placement$) are only made within calls of the form SPHelper($G,k,placement$). When such a call is made from the else if clause, then $placement$ already satisfies $G.fringe[k]$ and OnlySatisfactory($k$) tells us that it also satisfies $G.fringe[0], ..., G.fringe[k-1]$, and together these give us OnlySatisfactory($k+1$). Otherwise the call SPHelper($G,k+1,placement$) is made within the for each loop. Adding $newFlags$ to $placement$ guarantees that $placement$ satisfies $G.fringe[k]$, but by the condition in the for each loop $newFlags$ doesn't contain any flags around $G.fringe[0], ..., G.fringe[k-1]$. OnlySatisfactory($k$) guarantees that $placement$ satisfied $G.fringe[0], ..., G.fringe[k-1]$ to begin with, and after adding $newFlags$ which doesn't contain any flags around these points, they continue to be satisfied. Thus OnlySatisfactory($k + 1$) is true.
+		
+		Now suppose AllSatisfactory($k$) is true. Let $P$ be a placement as described in AllSatisfactory($k+1$).  Let $N$ be the flags from $P$ which are adjacent to $G.fringe[k]$ but are not adjacent to $G.fringe[0], ..., G.fringe[k-1]$($N$ may be empty), and set $P'$ equal to $P - N$. It should be clear that $P'$ is one of the placements described in AllSatisfactory($k$), and so there is a call of the form SPHelper($G,k,placement$)  with $placement$ equal to $P'$. If $N = \emptyset$ then $placement = P' = P$ satisfies $G.fringe[0], ..., G.fringe[k]$ already and the else if clause makes the call SPHelper($G,k + 1,placement$) as required. Otherwise if $N \neq \emptyset$, one of the iterations of the for each loop sets $newMines$ equal to $N$ and adds $newMines$ to $placement$. Since $placement$ equals $P'$ before this it now equals $P' \cup N = P$. Thus we call SPHelper($G,k + 1,placement$) with $placement = P$ as desired.
+	\end{proof}
+
+	
+	Now to analyze the runtime. First observe that each iteration of the for each loop includes a recursive call to SPHelper, so we can associate the work done in this iteration as a a prt of the recursive call (i.e. we associate the work with the call SPHelper($G, i+1, placement$), not with the current call). All other work done in call to SPHelper is constant, thus the runtime is proportional to the number of calls to SPHelper. At the beginning of each call to SPHelper $placement$ stores a different subset of the perimiter (we could prove this by induction), and so the number of calls is bounded by the number of subsets of the perimiter, i.e. $2^p$ where $p$ is the size of the perimiter. Thus the runtime is $O(2^p)$, and as desired we've dropped the factor of $p$ from the previous version of SatisfactoryPlacements(). Also note that while the previous version of SatisfactoryPlacements() tried literally every subset of the perimiter, this version cuts out a lot of subsets by not building upon placements as soon as its clear that won't satisfy a point in the fringe, viz "if($point$ has too many flags around it)."
+	
+	
+	
 	
 	
 	
