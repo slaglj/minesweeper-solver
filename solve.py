@@ -155,7 +155,7 @@ class ExhaustiveSolver(BruteSolver):
             # At this point proposed_mines is a valid placement of mines about
             # the fringe thus, we can narrow down known_mines to include only
             # proposed_mines (if any)
-            yield proposed_mines
+            yield proposed_mines.copy()
         else:
             point = fringe_list[fringe_index]
             
@@ -168,6 +168,10 @@ class ExhaustiveSolver(BruteSolver):
             if(num_needed < 0):
                 # at this point we know proposed_mines is invalid
                return
+            elif(num_needed == 0):
+                # point is satisfied, continue recursing
+                _vmpg_helper(self,fringe_list,fringe_index + 1, proposed_mines, proposed_free)
+            #else: is implicit here
             
             # we must subtract the proposed_free points because they are
             # to be revealed (tentatively)
