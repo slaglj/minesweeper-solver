@@ -45,8 +45,8 @@ class MinesweeperGame:
 		if not square.is_flagged:
 			square.is_flagged = True
 
-			for buf in self.move_buffers:
-				buf.append(('flag',point))
+			for prot in self.move_protocols:
+				prot(point,'flag')
 
 	def remove_flag(self, point):
 		"""Remove flag from point
@@ -65,8 +65,8 @@ class MinesweeperGame:
 		if square.is_flagged:
 			square.is_flagged = False
 
-			for buf in self.move_buffers:
-				buf.append(('unflag',point))
+			for prot in self.move_protocols:
+				prot(point,'unflag')
 
 	def reveal(self, point):
 		"""Reveal the square at the given point
@@ -94,8 +94,8 @@ class MinesweeperGame:
 		square = self._get_square(point)
 		square.is_revealed = True
 
-		for buf in self.move_buffers:
-			buf.append(('reveal',point))
+		for prot in self.move_protocols:
+				prot(point,'reveal')
 
 
 		self.num_revealed += 1
@@ -227,10 +227,8 @@ class MinesweeperGame:
 	# Method to facilitate "watching" game progress                          #
 	#------------------------------------------------------------------------#
 
-	def add_move_buffer(self):
-		new_buffer = collections.deque()
-		self.move_buffers.append(new_buffer)
-		return new_buffer
+	def add_move_protocol(self,prot):
+		self.move_protocols.append(prot)
 
 	#------------------------------------------------------------------------#
 	# Non-public methods                                                     #
@@ -267,7 +265,7 @@ class MinesweeperGame:
 		self.is_over = False
 		self.num_revealed = 0
 
-		self.move_buffers = []
+		self.move_protocols = []
 
 		
 

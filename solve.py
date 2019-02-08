@@ -83,10 +83,9 @@ class BruteSolver():
                 self.fringe.add(point)
                 self.in_play.update(self.game.blank_neighbors(point))
 
-        self.move_buffer = self.game.add_move_buffer()
+        self.game.add_move_protocol(self._update_solver_with_move)
 
     def solve(self):
-        self._update_solver_with_all_moves()
         known_mines = set(self.in_play)
         known_free = set(self.in_play)
 
@@ -115,10 +114,6 @@ class BruteSolver():
                 return False
 
         return True
-
-    def _update_solver_with_all_moves(self):
-        while self.move_buffer:
-            self._update_solver_with_move(self.move_buffer.popleft())
 
     def _update_solver_with_move(self,move):
         (move_type, point) = move
@@ -203,11 +198,10 @@ class HumanSolver():
             if is_fringe_point(self.game,point):
                 self.active_fringe.append(point)
 
-        self.move_buffer = self.game.add_move_buffer()
+        self.game.add_move_protocol(self._update_solver_with_move)
 
 
     def solve(self):
-        self._update_solver_with_all_moves()
 
         new_mines = []
         new_free = []
@@ -266,13 +260,7 @@ class HumanSolver():
 
         return (new_mines,new_free)
 
-    def _update_solver_with_all_moves(self):
-        while self.move_buffer:
-            self._update_solver_with_move(self.move_buffer.popleft())
-
-    def _update_solver_with_move(self,move):
-        (move_type, point) = move
-
+    def _update_solver_with_move(self,point,move_type):
         if move_type == 'reveal' or move_type == 'flag':
 
             for rev_neighb in self.game.revealed_neighbors(point):
