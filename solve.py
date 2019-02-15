@@ -50,7 +50,6 @@ def show_algorithm(game,solverClass,displayClass):
 def is_fringe_point(game,point):
     if not game.is_revealed(point):
         return False
-
     try:
         next(game.blank_neighbors(point))
     except StopIteration:
@@ -115,9 +114,7 @@ class BruteSolver():
 
         return True
 
-    def _update_solver_with_move(self,move):
-        (move_type, point) = move
-
+    def _update_solver_with_move(self,point,move_type):
         if move_type == 'reveal' or move_type == 'flag':
             self.in_play.discard(point)
 
@@ -165,7 +162,7 @@ class ExhaustiveSolver(BruteSolver):
                return
             elif(num_needed == 0):
                 # point is satisfied, continue recursing
-                _vmpg_helper(self,fringe_list,fringe_index + 1, proposed_mines, proposed_free)
+                self._vmpg_helper(fringe_list,fringe_index + 1, proposed_mines, proposed_free)
             #else: is implicit here
             
             # we must subtract the proposed_free points because they are
