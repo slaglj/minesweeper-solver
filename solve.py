@@ -73,22 +73,22 @@ class BruteSolver():
     def __init__(self,game):
         self.game = game
         self.fringe = set([])
-        self.in_play = set([])
+        self.perimiter = set([])
 
         # in case solver is created after some progress has been made in the
         # game, update fringe and in play accordingly
         for point in self.game.board_iterator():
             if is_fringe_point(self.game,point):
                 self.fringe.add(point)
-                self.in_play.update(self.game.blank_neighbors(point))
+                self.perimiter.update(self.game.blank_neighbors(point))
 
         self.game.add_move_protocol(self._update_solver_with_move)
 
     def solve(self):
-        known_mines = set(self.in_play)
-        known_free = set(self.in_play)
+        known_mines = set(self.perimiter)
+        known_free = set(self.perimiter)
 
-        for mine_placement in self._valid_mine_placement_generator():
+        for mine_placement in self._satisfactory_placement_generator():
             known_mines.intersection_update(mine_placement)
             known_free.difference_update(mine_placement)
             if(not known_mines and not known_free):
@@ -96,14 +96,14 @@ class BruteSolver():
 
         return (known_mines,known_free)
 
-    def _valid_mine_placement_generator(self):
-        # generates all valid mine placements in the current game
+    def _satisfactory_placement_generator(self):
+        # generates all satisfactory mine placements in the current game
 
         # note the use of of powerset, a function (not method)
         # defined in this using the recipe from itertools package 
-        return filter(self._is_valid_mine_placement, powerset(self.in_play))
+        return filter(self._is_satisfactory_placement, powerset(self.perimiter))
 
-    def _is_valid_mine_placement(self,mines):
+    def _is_satisfactory_placement(self,mines):
         for point in self.fringe:
             is_proposed = lambda x: self.game.is_flagged(x) or x in mines
             num_mines_proposed = len(list(
@@ -116,7 +116,7 @@ class BruteSolver():
 
     def _update_solver_with_move(self,point,move_type):
         if move_type == 'reveal' or move_type == 'flag':
-            self.in_play.discard(point)
+            self.perimiter.discard(point)
 
             # We must check to see if the revealed neighbors of point are
             # in the fringe because it may be that after revealing/flagging 
@@ -129,22 +129,22 @@ class BruteSolver():
         if move_type == 'reveal':
             if is_fringe_point(self.game,point):
                 self.fringe.add(point)
-                self.in_play.update(self.game.blank_neighbors(point))
+                self.perimiter.update(self.game.blank_neighbors(point))
 
         if move_type == 'unflag':
             if is_in_play(self.game,point):
-                self.in_play.add(point)
+                self.perimiter.add(point)
                 self.fringe.update(self.game.revealed_neighbors(point))
 
 class ExhaustiveSolver(BruteSolver):
 
-    def _valid_mine_placement_generator(self):
+    def _satisfactory_placement_generator(self):
         yield from self._vmpg_helper(list(self.fringe),0,set([]),set([]))
 
     def _vmpg_helper(self,fringe_list,fringe_index,proposed_mines,
         proposed_free):
         if fringe_index == len(fringe_list):
-            # At this point proposed_mines is a valid placement of mines about
+            # At this point proposed_mines is a satisfactory placement of mines about
             # the fringe thus, we can narrow down known_mines to include only
             # proposed_mines (if any)
             yield proposed_mines.copy()
@@ -158,7 +158,7 @@ class ExhaustiveSolver(BruteSolver):
             num_needed = self.game.num_mines_surrounding(point) - num_mines
 
             if(num_needed < 0):
-                # at this point we know proposed_mines is invalid
+                # at this point we know proposed_mines is invalid (unsatisfactory)
                return
             elif(num_needed == 0):
                 # point is satisfied, continue recursing
