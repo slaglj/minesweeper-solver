@@ -68,6 +68,20 @@ class MinesweeperGame:
 			for prot in self.move_protocols:
 				prot(point,'unflag')
 
+	def toggle_flag(self, point):
+		"""Change point from unflagged to flagged, or vice versa
+
+		Args:
+			point (tuple of ints) -- coordinate point on the game board
+
+		Raises:
+			GameOverException -- raised if the game is already over
+		"""
+		if self.is_flagged(point):
+			self.place_flag(point)
+		else:
+			self.remove_flag(point)
+
 	def reveal(self, point):
 		"""Reveal the square at the given point
 
