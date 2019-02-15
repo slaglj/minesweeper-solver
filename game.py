@@ -78,9 +78,9 @@ class MinesweeperGame:
 			GameOverException -- raised if the game is already over
 		"""
 		if self.is_flagged(point):
-			self.place_flag(point)
-		else:
 			self.remove_flag(point)
+		else:
+			self.place_flag(point)
 
 	def reveal(self, point):
 		"""Reveal the square at the given point
