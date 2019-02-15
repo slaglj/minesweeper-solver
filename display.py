@@ -1,4 +1,4 @@
-import game
+import game as gm
 import pygame
 
 class Minesweeper2dConsoleDisplay():
@@ -76,6 +76,7 @@ class MinesweeperGraphicDisplay():
     sprite_map['blank'] = pygame.image.load('sprites/blank.png')
     sprite_map['flag'] = pygame.image.load('sprites/flag.png')
     sprite_map['mine'] = pygame.image.load('sprites/mine.png')
+    sprite_map['badflag'] = pygame.image.load('sprites/badflag.png')
     sprite_map[0] = pygame.image.load('sprites/zero.png')
     sprite_map[1] = pygame.image.load('sprites/one.png')
     sprite_map[2] = pygame.image.load('sprites/two.png')
@@ -91,36 +92,107 @@ class MinesweeperGraphicDisplay():
         self.game = game
         if len(self.game.board_dimensions) != 2:
             raise ValueError('MinesweeperGraphicDisplay only works with 2D games')
+
+        pygame.display.set_caption('Minesweeper')
         screenwidth = SQUARE_WIDTH * self.game.board_dimensions[0]
         screenlength = SQUARE_WIDTH * self.game.board_dimensions[1]
         self.screen = pygame.display.set_mode((screenwidth,screenlength))
 
-        pygame.display.set_caption('Minesweeper')
+        self.render_board()
         self.game.add_move_protocol(self.move_protocol)
+        
 
-        self.screen.fill((0,0,0))
-        for point in self.game.board_iterator():
-            self.blit_square(point)
-        pygame.display.flip()
-
-    def run_game(self):
-        pygame.display.update()
+    @classmethod
+    def play_game(cls,game):
+        disp = cls(game)
 
         running = True
         while running:
           for event in pygame.event.get():
             if event.type == pygame.QUIT:
               running = False
+              pygame.quit()
+            elif event.type == pygame.MOUSEBUTTONUP:
+                point = disp.pixel_to_point(event.pos)
+                if event.button == 1:
+                    try:
+                        disp.game.reveal(point)
+                    except(gm.GameWonException):
+                        disp.render_board()
+                    except(gm.GameLostException):
+                        disp.render_board()
+
+                elif event.button == 3:
+                    disp.game.toggle_flag(point)
+
+    @classmethod
+    def show_algorithm(cls,game,solverclass):
+        disp = cls(game)
+        solver = solverclass(game)
+
+        if game.num_revealed < 1:
+            game.reveal(game.random_point())
+        pygame.event.pump()
+
+        (known_mines, known_free) = solver.solve()
+
+        while(known_mines or known_free):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+
+            for mine in known_mines:
+                game.place_flag(mine)
+
+            for free in known_free:
+                game.reveal(free)
+
+            (known_mines,known_free) = solver.solve()
+            """try:
+                game.reveal(free)
+            except(gm.GameWonException):
+                disp.render_board()
+            except(gm.GameLostException):
+                disp.render_board()"""
+        while(True):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+            
+
+
+
+            
+    def render_board(self):
+        for point in self.game.board_iterator():
+            self.blit_square(point)
+        pygame.display.update()
 
     def blit_square(self,point):
         sprites = MinesweeperGraphicDisplay.sprite_map
 
-        if self.game.is_revealed(point):
-            sprite = sprites[self.game.num_mines_surrounding(point)]
-        elif self.game.is_flagged(point):
-            sprite = sprites['flag']
+        if self.game.is_over:
+            mined = self.game.contains_mine(point)
+            flagged = self.game.is_flagged(point)
+
+            if mined and flagged:
+                sprite = sprites['goodflag']
+            elif mined:
+                sprite = sprites['mine']
+            elif flagged:
+                sprite = sprites['badflag']
+            else:
+                sprite = sprites[self.game.num_mines_surrounding(point)]
+
         else:
-            sprite = sprites['blank']
+            if self.game.is_revealed(point):
+                sprite = sprites[self.game.num_mines_surrounding(point)]
+            elif self.game.is_flagged(point):
+                sprite = sprites['flag']
+            else:
+                sprite = sprites['blank']
 
         pos = (point[0]*SQUARE_WIDTH, point[1]*SQUARE_WIDTH)
 
@@ -128,7 +200,12 @@ class MinesweeperGraphicDisplay():
 
     def move_protocol(self,point,move_type):
         pygame.display.update(self.blit_square(point))
-        pygame.event.pump()
+
+    def pixel_to_point(self,pixel):
+        #TODO, consider cases where the screen conists of more than the board
+        x = pixel[0] // SQUARE_WIDTH
+        y = pixel[1] // SQUARE_WIDTH
+        return (x,y)
 
 
 
