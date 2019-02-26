@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{amsthm}
 \usepackage{algpseudocode} 
+\usepackage{graphicx}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -20,7 +21,118 @@
 	\maketitle
 	
 	\section*{Introduction}
-	Minesweeper Solver is a personal project I started to practice my coding skills. Specifically I wanted to take a problem, develop an algorithm to solve it, and create a project around it with all of the trappings. The game minesweeper was suitably complex: a good,efficient algorithm would take a bit of thinking, but not so much that I couldn't also focus on code design and increasing my Python knowledge. I also like the poetry of taking something which I've used as a distraction in the past and using it to improve myself.
+	This document discusses in detail my thought process in developing the algorithms. As a disclaimer I'd like to say that I understand that writing code doesn't usually include theoretical analysis like this, and in fact I wrote this document after coding up the algorithms I've described. The reason I wrote this is to explain my thought process in developing the solver algorithms, i.e. to demonstrate how I can see the essential, theoretical nature of a problem and from there develop effective and efficient algorithms. This theoretical clarity is useful both in terms of organizing code and communicating with teammates.
+	
+	
+	Henceforth I will mostly stick to the formal "we" is in mathematical writing.
+	
+	To begin with we consider the problem of beating a game of minesweeper. Simply put, we are trying to decide squares have mines and which do not. If we can find some such squares we flag the ones that have mines and reveal or "click" the squares that don't. In doing so, we have more information which helps us decide more squares to flag or reveal. As long as we can keep finding squares, eventually we'll cover the whole board and in this way we win the game.
+	\section*{Human-like Solving}
+	As a starting point we consider how a person plays minesweeper, as opposed to a computer executing an algorithm. Dropping the formal "we" momentarily, if I can formalize the strategies I use to play minesweeper (I'm assuming not everybody plays in exactly the way I  do), I can turn them into an algorithm.
+	
+	\subsection*{The Strategies}
+	When I play minesweeper, my bread and butter strategy is to consider the information provided a by looking at a number on the board, or by looking at two numbers in conjunction and seeing if I can deduce where mines must be, or where mines must not be. Consider this example:
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{exampleimages/example1a}
+	\end{center}
+	 There is a 3 on the board with only one flag next to it and exactly two blank squares next to it (i.e. the other five squares adjacent to it have been revealed).The 3 requires two more flags to satisfy it, and since only two blank squares adjacent to 3 remain we know those must contain mines and so we flag them
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{exampleimages/example1b}
+	\end{center}
+	In doing so we are following a certain strategy: if the number of spaces around a number equals the number of flags that still need to be placed around it, then flag all those spaces. We now formalize that strategy. Let $p$ be a point on the board, and let $m$ be the number of mines around $p$ that need to be flagged beyond those that have already been flagged, and let $B$ be the blank squares adjacent to $p$ (in the above example, $m = 2$ and $|B| = 2$). We state the strategy in a pseudocode snippet:
+	\begin{algorithmic}
+		\If{$m = |B|$} \Comment strategy 1
+		\State flagAll($B$)
+		\EndIf
+	\end{algorithmic}
+	We also know that if there are no more flags required, then we can simply reveal all adjacent squares
+	\begin{algorithmic}
+		\If{$m = 0$} \Comment strategy 2
+		\State revealAll($B$)
+		\EndIf
+	\end{algorithmic}
+	
+	Those are the two strategies we follow when we look at one number. Now consider this example with two numbers. 
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{exampleimages/example2a}
+	\end{center}
+	Consider the 2 in the center and the 1 directly to the right of it. There are two squares adjacent to both of them, the space above the 2 and above the 1. Because these squares are adjacent to the 1, only one of them can contain a mine. But the 2 must have two mines adjacent to it, and so there must be another mine elsewhere to satisfy it. Outside of these two spaces shared by the one and two, the only blank square is above and to the left of the 2, so we flag this space:
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{exampleimages/example2b}
+	\end{center}
+	To capture this idea in a strategy we define some variables: Ilet $p_1$ and $p_2$ two points on the board, let $m_1$ and $m_2$ the number of mines needed to satisfy $p_1$ and $p_2$ respectively, and let $B_1$ and $B_2$ be the blank squares around $p_1$ and $p_2$ respectively. Set $I = B_1 \cap B_2$.  Observe that since $I \subseteq B_1$ it can not contain any more mines than $B_1$ which contains $m_1$ mines, that is $I$ can not contain more mines that $B_1$. We can apply the same logic with $B_2$ instead of $B_1$, and of course $I$ can not have more mines than spaces, and so altogether we have a bound on the number of mines in $I$
+	$$i _{max} = \textrm{max}(m_1,m_2,|I|) $$
+	With these definitions we state this strategy
+	\begin{algorithmic}
+		\If{$m_1 - i_{max} = |B_1 - I|$} \Comment Strategy 3
+		\State flagAll($B_1 - I$)
+		\EndIf
+	\end{algorithmic}
+	as well as the symmetric strategy
+	\begin{algorithmic}
+		\If{$m_2 - i_{max} = |B_2 - I|$} \Comment Strategy 4
+		\State flagAll($B_2 - I$)
+		\EndIf
+	\end{algorithmic}
+	If we call the 1 in our example $p_1$ and the 2 is $p_2$, then the strategy we used is Strategy 4. 
+	
+	We can also establish a \textit{lower} bound $i_{min}$ on the number of flags in $I$. Namely, $B_1 - I$ can only contain $|B_1 - I|$ mines, and so $I$ must contain the remaining $m_1 - |B_1 - I|$ mines required around $p_1$. Similarly $I$ must contain at least $m_2 - |B_2 - I|$ mines, and so we say
+	$$i_{min} = \textrm{max}(m_1 - |B_1 - I|, m_2 - |B_2 - I|)$$
+	Using this we derive three more strategies:
+	\begin{algorithmic}
+		\If{$i_{min} = |I|$} \Comment Strategy 5
+		\State flagAll($I$)
+		\EndIf
+	\end{algorithmic}
+	\begin{algorithmic}
+		\If{$i_{min} = m_1$} \Comment Strategy 6
+		\State revealAll($B_1 - I$)
+		\EndIf
+	\end{algorithmic}
+	\begin{algorithmic}
+		\If{$i_{min} = m_2$} \Comment Strategy 7
+		\State revealAll($B_2 - I$)
+		\EndIf
+	\end{algorithmic}
+	In fact, if we apply Strategy 6 to our example (with $p_1$ as the 1 and $p_2$ as the 2, as before), we are able to reveal a square:
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{exampleimages/example2c}
+	\end{center}
+	
+	\subsection*{Human-like Algorithm }
+	The basic idea for the algorithm is to just apply to the strategies to different points (or pairs of points) on the board until the game is won. It's just a matter of deciding when and where to apply the strategies. First off, observe that there is no use in applying Strategies 3-7 unless the two points have at least one blank neighbor in common. With this in mind, we write a subroutine that takes a point $p$ and applies all the necessary strategies to it.
+	\begin{algorithmic}
+		\Function{ApplyStrategies}{$p$}
+		\State Apply Strategies 1 and 2 to $p$
+		\State $p_1 \gets p$
+		\ForAll{points $p_2$ that share a blank neighbor with $p_1$}
+		\State Apply Strategies 3-7 to $p_1$ and $p_2$
+		\EndFor
+		\EndFunction
+	\end{algorithmic}
+	Now its just a question of which points to call ApplyStrategies on. Firstoff, we only need to check revealed points, i.e. squares with numbers. Secondly we only need to bother with points that have at least one blank neighbor- we will call the collection of all such points the \textbf{fringe} because it consists of those squares on the edge of the contiguous blobs of revealed squares. Finally, while we may meed to call ApplyStrategies repeatedly on a given point $p$, we only need to call it again \textit{after} one of the blank neighbors of $p$ has been flagged or revealed. To capture this we'll have a stack active which tracks which points need to be checked (which may have repeated values). Here is the pseudocode to solve a game $G$ of minesweeper. We assume at least one move has been made so that there are revealed squares and a fringe to begin with
+		\begin{algorithmic}
+		\Function{Solve}{$G$} \Comment Human-Like algorithm
+		\State $active \gets$ fringe of $G$
+		\While{$active$ is not empty}
+		\State $p \gets active.\textrm{pop()}$
+		\State ApplyStrategies($p$)
+		\ForAll{revealed points $q$ with a just revealed/flagged neighbor}
+		\State $active$.push($q$)
+		\EndFor
+		\EndWhile
+		\EndFunction
+	\end{algorithmic}
+
+	
+	\subsection*{Correctness and Completeness}
+	The correctness of the algorithm, i.e. the ability to correctly identify mine and mine-free squares should be evident from the above discussion. However there is no guaranteed that it will beat the game even when it is theoretically possible.
+	\subsection*{Space and Runtime}
+	The only significant space usage is in the variable $active$ which is of course bounded by the number of points $b$ on the game board, so the algorithm uses $O(b)$ space.
+	
+	Observe that each strategy can be applied in constant time. Moreover all the points $p_2$ must be within two squares of $p_2$, and there are 25 such squares (within a five by five window centered around $p_1$). It follows that ApplyStrategies executes in constant time. Fix a point $p$. ApplyStrategies might be called on $p$ once and then each time a point adjacent to it is revealed. There are only 8 adjacent points, so in total ApplyStrategies can be called up to 9 times on $p$. Thus this algorithm runs in $O(b)$ time, where again $b$ is the number of points on the game board.
+	
+	
 	
 	\section*{The Problem}
 	Simply put, the problem is to solve a game of Minesweeper (I assume the reader is familiar with the mechanics of the game). In more detail, I seek an algorithm that, if possible, wins a game of Minesweeper without ever risking losing the game, i.e. never makes a move unless its a sure move. It suffices to look at a freeze frame of the game and determine with certainty which spaces must contain mines, and so should be flagged (right-clicked), and which spaces must not contain mines, and so should be revealed (left-clicked). Its unnecssary to find all such spaces, because an algorithm that can find at least one new space each time can be applied repeatedly.

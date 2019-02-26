@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  25 JAN 2019 03:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  26 FEB 2019 09:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -57,51 +57,175 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip48
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks20
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
 )
 \c@definition=\count95
 \c@algorithm=\count96
 
 
-Package amsthm Warning: Unknown theoremstyle `theorem' on input line 11.
+Package amsthm Warning: Unknown theoremstyle `theorem' on input line 12.
 
 \c@claim=\count97
 (./theory.aux)
 \openout1 = `theory.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+
+(/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count98
+\scratchdimen=\dimen105
+\scratchbox=\box26
+\nofMPsegments=\count99
+\nofMParguments=\count100
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count101
+\MPscratchDim=\dimen106
+\MPnumerator=\count102
+\makeMPintoPDFobject=\count103
+\everyMPtoPDFconversion=\toks22
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2018/01/30 v0.27 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 20.
+(Font)              <12> on input line 21.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 20.
+(Font)              <8> on input line 21.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 20.
- [1
+(Font)              <6> on input line 21.
+<exampleimages/example1a.png, id=1, 80.3pt x 80.3pt>
+File: exampleimages/example1a.png Graphic file (type png)
+<use exampleimages/example1a.png>
+Package pdftex.def Info: exampleimages/example1a.png  used on input line 36.
+(pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
+
+[1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+<exampleimages/example1b.png, id=11, 80.3pt x 80.3pt>
+File: exampleimages/example1b.png Graphic file (type png)
+<use exampleimages/example1b.png>
+Package pdftex.def Info: exampleimages/example1b.png  used on input line 40.
+(pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 35.
+(Font)              <7> on input line 42.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 35.
- [2] [3] [4] [5]
-Overfull \hbox (2.15547pt too wide) in paragraph at lines 176--177
+(Font)              <5> on input line 42.
+<exampleimages/example2a.png, id=12, 112.42pt x 48.18pt>
+File: exampleimages/example2a.png Graphic file (type png)
+<use exampleimages/example2a.png>
+Package pdftex.def Info: exampleimages/example2a.png  used on input line 57.
+(pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
+
+[2 <./exampleimages/example1a.png (PNG copy)> <./exampleimages/example1b.png (P
+NG copy)> <./exampleimages/example2a.png (PNG copy)>]
+<exampleimages/example2b.png, id=19, 112.42pt x 48.18pt>
+File: exampleimages/example2b.png Graphic file (type png)
+<use exampleimages/example2b.png>
+Package pdftex.def Info: exampleimages/example2b.png  used on input line 61.
+(pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
+ [3 <./exampleimages/example2b.png (PNG copy)>]
+<exampleimages/example2c.png, id=26, 112.42pt x 48.18pt>
+File: exampleimages/example2c.png Graphic file (type png)
+<use exampleimages/example2c.png>
+Package pdftex.def Info: exampleimages/example2c.png  used on input line 99.
+(pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
+ [4 <./exampleimages/example2c.png (PNG copy)>] [5]
+[6] [7] [8] [9]
+Overfull \hbox (2.15547pt too wide) in paragraph at lines 288--289
 []\OT1/cmr/m/n/10 AllSatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ): Each p
 lace-ment which (a) sat-is-fies the points $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m
 /n/10 [0]$,
  []
 
 
-Overfull \hbox (18.34857pt too wide) in paragraph at lines 176--177
+Overfull \hbox (18.34857pt too wide) in paragraph at lines 288--289
 \OT1/cmr/m/n/10 ...,$\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10
  i \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1]$ and (b) con-tains only flags ad-ja-
 cent to $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :::; G:
@@ -109,7 +233,7 @@ fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Overfull \hbox (56.93753pt too wide) in paragraph at lines 183--184
+Overfull \hbox (56.93753pt too wide) in paragraph at lines 295--296
 \OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k\OT1/cmr/m/n/10 ]$ 
 and OnlySatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ) tells us that it als
 o sat-is-fies $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :
@@ -117,14 +241,14 @@ o sat-is-fies $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :
  []
 
 
-Overfull \hbox (6.8724pt too wide) in paragraph at lines 183--184
+Overfull \hbox (6.8724pt too wide) in paragraph at lines 295--296
 \OT1/cmr/m/n/10 SPHelper($\OML/cmm/m/it/10 G; k \OT1/cmr/m/n/10 + 1\OML/cmm/m/i
 t/10 ; placement$\OT1/cmr/m/n/10 ) is made within the for each loop. Adding $\O
 ML/cmm/m/it/10 newFlags$
  []
 
 
-Overfull \hbox (69.20052pt too wide) in paragraph at lines 183--184
+Overfull \hbox (69.20052pt too wide) in paragraph at lines 295--296
 \OT1/cmr/m/n/10 tion in the for each loop $\OML/cmm/m/it/10 newFlags$ \OT1/cmr/
 m/n/10 doesn't con-tain any flags around $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n
 /10 [0]\OML/cmm/m/it/10 ; :::; G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k \OMS
@@ -132,38 +256,39 @@ m/n/10 doesn't con-tain any flags around $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n
  []
 
 
-Overfull \hbox (37.74918pt too wide) in paragraph at lines 183--184
+Overfull \hbox (37.74918pt too wide) in paragraph at lines 295--296
 \OT1/cmr/m/n/10 1]$. OnlySatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ) gua
 r-an-tees that $\OML/cmm/m/it/10 placement$ \OT1/cmr/m/n/10 sat-is-fied $\OML/c
 mm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :::; G:fringe\OT1/cmr/
 m/n/10 [\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^@
  []
 
-[6] [7] (./theory.aux) ) 
+[10] [11] (./theory.aux) ) 
 Here is how much of TeX's memory you used:
- 887 strings out of 492649
- 11529 string characters out of 6129622
- 75222 words of memory out of 5000000
- 4828 multiletter control sequences out of 15000+600000
- 8235 words of font info for 29 fonts, out of 8000000 for 9000
+ 2122 strings out of 492649
+ 30626 string characters out of 6129622
+ 96778 words of memory out of 5000000
+ 5992 multiletter control sequences out of 15000+600000
+ 8542 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,8n,19p,1237b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmcsc10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ti10.pfb>
-Output written on theory.pdf (7 pages, 152749 bytes).
+ 41i,8n,25p,1237b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2018/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
+i10.pfb>
+Output written on theory.pdf (11 pages, 178467 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 93 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
