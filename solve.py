@@ -1,6 +1,6 @@
-import itertools
-import game as gamemodule
+from exceptions import *
 
+import itertools
 
 
 def show_algorithm(game,solverClass,displayClass):
@@ -29,11 +29,11 @@ def show_algorithm(game,solverClass,displayClass):
                 for free in known_free:
                     game.reveal(free)
 
-            except(gamemodule.GameWonException):
+            except(GameWonException):
                 print('Success! The solver beat the game.')
                 display.display_game()
                 return
-            except(gamemodule.GameOverException):
+            except(GameOverException):
                 print('The game is over.')
 
             display.display_game()

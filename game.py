@@ -1,20 +1,10 @@
 # The code to run and display a game of Minesweeper
 # Jacob C. Slagle, 2018
 
+from exceptions import *
+
 import itertools
 import collections 
-
-class GameOverException(Exception):
-	pass
-
-class GameWonException(Exception):
-	pass
-	
-class GameLostException(Exception):
-	pass
-
-class GameNotOverException(Exception):
-	pass
 
 class MinesweeperGame:
 	"""

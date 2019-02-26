@@ -1,4 +1,4 @@
-import game as gm
+from exceptions import *
 import pygame
 
 class Minesweeper2dConsoleDisplay():
@@ -112,9 +112,9 @@ class MinesweeperGraphicDisplay():
                 if event.button == 1:
                     try:
                         disp.game.reveal(point)
-                    except(gm.GameWonException):
+                    except(GameWonException):
                         disp.render_board()
-                    except(gm.GameLostException):
+                    except(GameLostException):
                         disp.render_board()
 
                 elif event.button == 3:
