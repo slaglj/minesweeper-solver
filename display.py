@@ -9,14 +9,14 @@ class Minesweeper2dConsoleDisplay():
         self.known_free = set([])
 
     def display_game(self):
-        max_x = self.game.board_dimensions[0]
+        max_x = self.game.dimensions[0]
 
         print(''.join(['_' for x in range(max_x)]))
         print(self.game_as_string())
 
     def game_as_string(self):
-        max_x = self.game.board_dimensions[0]
-        max_y = self.game.board_dimensions[1]
+        max_x = self.game.dimensions[0]
+        max_y = self.game.dimensions[1]
 
         char_rep = self._char_representation_game_over if self.game.is_over else self._char_representation_in_play
 
@@ -72,34 +72,29 @@ GREY =  (192,192,192)
 class MinesweeperGraphicDisplay():
     pygame.init()
 
-    sprite_map = {}
-    sprite_map['blank'] = pygame.image.load('sprites/blank.png')
-    sprite_map['flag'] = pygame.image.load('sprites/flag.png')
-    sprite_map['mine'] = pygame.image.load('sprites/mine.png')
-    sprite_map['badflag'] = pygame.image.load('sprites/badflag.png')
-    sprite_map[0] = pygame.image.load('sprites/zero.png')
-    sprite_map[1] = pygame.image.load('sprites/one.png')
-    sprite_map[2] = pygame.image.load('sprites/two.png')
-    sprite_map[3] = pygame.image.load('sprites/three.png')
-    sprite_map[4] = pygame.image.load('sprites/four.png')
-    sprite_map[5] = pygame.image.load('sprites/five.png')
-    sprite_map[6] = pygame.image.load('sprites/six.png')
-    sprite_map[7] = pygame.image.load('sprites/seven.png')
-    sprite_map[8] = pygame.image.load('sprites/eight.png')
+    def __init__(self,game,colorscheme='monokai'):
+        self.sprites = {}
+        self._load_sprites(colorscheme)
 
-
-    def __init__(self,game):
         self.game = game
-        if len(self.game.board_dimensions) != 2:
+        if len(self.game.dimensions) != 2:
             raise ValueError('MinesweeperGraphicDisplay only works with 2D games')
 
         pygame.display.set_caption('Minesweeper')
-        screenwidth = SQUARE_WIDTH * self.game.board_dimensions[0]
-        screenlength = SQUARE_WIDTH * self.game.board_dimensions[1]
+        screenwidth = SQUARE_WIDTH * self.game.dimensions[0]
+        screenlength = SQUARE_WIDTH * self.game.dimensions[1]
         self.screen = pygame.display.set_mode((screenwidth,screenlength))
 
         self.render_board()
         self.game.add_move_protocol(self.move_protocol)
+
+    def _load_sprites(self,colorscheme):
+        names = list(map(str,range(9)))
+        names.extend(['blank','flag','mine','goodflag','badflag','boom'])
+
+        for name in names:
+            file = 'sprites/' + colorscheme + '/' + name + '.png'
+            self.sprites[name] = pygame.image.load(file)
         
 
     @classmethod
@@ -171,28 +166,30 @@ class MinesweeperGraphicDisplay():
         pygame.display.update()
 
     def blit_square(self,point):
-        sprites = MinesweeperGraphicDisplay.sprite_map
+        revealed = self.game.is_revealed(point)
+        flagged = self.game.is_flagged(point)
 
         if self.game.is_over:
             mined = self.game.contains_mine(point)
-            flagged = self.game.is_flagged(point)
-
-            if mined and flagged:
-                sprite = sprites['goodflag']
+            
+            if mined and revealed:
+                sprite = self.sprites['boom']
+            elif mined and flagged:
+                sprite = self.sprites['goodflag']
             elif mined:
-                sprite = sprites['mine']
+                sprite = self.sprites['mine']
             elif flagged:
-                sprite = sprites['badflag']
+                sprite = self.sprites['badflag']
             else:
-                sprite = sprites[self.game.num_mines_surrounding(point)]
+                sprite = self.sprites[str(self.game.num_mines_surrounding(point))]
 
         else:
-            if self.game.is_revealed(point):
-                sprite = sprites[self.game.num_mines_surrounding(point)]
-            elif self.game.is_flagged(point):
-                sprite = sprites['flag']
+            if revealed:
+                sprite = self.sprites[str(self.game.num_mines_surrounding(point))]
+            elif flagged:
+                sprite = self.sprites['flag']
             else:
-                sprite = sprites['blank']
+                sprite = self.sprites['blank']
 
         pos = (point[0]*SQUARE_WIDTH, point[1]*SQUARE_WIDTH)
 
@@ -206,6 +203,9 @@ class MinesweeperGraphicDisplay():
         x = pixel[0] // SQUARE_WIDTH
         y = pixel[1] // SQUARE_WIDTH
         return (x,y)
+
+    def save_board_image(self,filename):
+        pygame.image.save(self.screen,filename)
 
 
 
