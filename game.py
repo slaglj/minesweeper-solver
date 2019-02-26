@@ -110,7 +110,7 @@ class MinesweeperGame:
 
 		for prot in self.move_protocols:
 				prot(point,'reveal')
-
+ 
 
 		self.num_revealed += 1
 
@@ -200,7 +200,7 @@ class MinesweeperGame:
 	
 	def board_iterator(self):
 		"""Return an iterator going over all points on the game board"""
-		return itertools.product(*[range(self.board_dimensions[dim]) for dim in range(len(self.board_dimensions))])
+		return itertools.product(*[range(self.dimensions[dim]) for dim in range(len(self.dimensions))])
 
 	def neighbors(self, point):
 		"""Return iterator over coordinate points adjacent (or diagonally adjacent) to a point on game board
@@ -213,9 +213,9 @@ class MinesweeperGame:
 		# coordinate_ranges will include the range of values included in each dimension
 		# e.g. coordinate_ranges[0] will give the range of x-values to be included.
 		coordinate_ranges = [] 
-		for dim in range(len(self.board_dimensions)):
+		for dim in range(len(self.dimensions)):
 			# make sure ranges lie within game board
-			coordinate_range = range(max(0,point[dim] - 1), min(point[dim] + 2, self.board_dimensions[dim]))
+			coordinate_range = range(max(0,point[dim] - 1), min(point[dim] + 2, self.dimensions[dim]))
 			coordinate_ranges.append(coordinate_range)
 
 		# Take the cartesian product of the coordinate ranges, put it in a list.
@@ -235,7 +235,7 @@ class MinesweeperGame:
 	def random_point(self):
 		"""Return a random point on the board"""
 		from random import randint
-		return tuple([randint(0, self.board_dimensions[dim] - 1) for dim in range(len(self.board_dimensions))])
+		return tuple([randint(0, self.dimensions[dim] - 1) for dim in range(len(self.dimensions))])
 
 	#------------------------------------------------------------------------#
 	# Method to facilitate "watching" game progress                          #
@@ -248,14 +248,14 @@ class MinesweeperGame:
 	# Non-public methods                                                     #
 	#------------------------------------------------------------------------#
 
-	def __init__(self, board_dimensions = (8,8), mines = None, num_mines = -1):
+	def __init__(self, dimensions = (8,8), mines = None, num_mines = -1):
 		# boardDimensions is a tuple of board dimensions, 
 		# usually of length two, i.e. (length, width). However, we allow the
 		# possiblity of 3-dimensional or n-dimensional games of minesweeper
-		self.board_dimensions = board_dimensions
+		self.dimensions = dimensions
 		from operator import mul
 		from functools import reduce
-		num_squares = reduce(mul,self.board_dimensions)
+		num_squares = reduce(mul,self.dimensions)
 
 		# grid is the game board, initially just an array of Squares, each
 		# of which has default values for members
@@ -285,14 +285,14 @@ class MinesweeperGame:
 
 	def _build_grid(self, dim):
 		# Build a game board, i.e. an n-dimensional array of Squares
-		# where n == len(self.board_dimensions) and the dimensions are given 
-		# by self.board_dimensions
+		# where n == len(self.dimensions) and the dimensions are given 
+		# by self.dimensions
 		#
 		# Squares are created with default values, to be updated by 
 		# _place_mines
-		if dim == len(self.board_dimensions):
+		if dim == len(self.dimensions):
 			return self.Square()
-		return [self._build_grid(dim+1) for _ in range(self.board_dimensions[dim])]
+		return [self._build_grid(dim+1) for _ in range(self.dimensions[dim])]
 
 	# A Square is an object representing one square in a minesweeper grid.  It
 	# simply packages all data relevant to one coordinate in a single object.
@@ -307,7 +307,7 @@ class MinesweeperGame:
 	def _get_square(self, point):
 		cross_section = self.grid
 
-		for dim in range(len(self.board_dimensions)):
+		for dim in range(len(self.dimensions)):
 			cross_section = cross_section[point[dim]]
 
 		return cross_section
