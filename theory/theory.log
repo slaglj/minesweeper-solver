@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  26 FEB 2019 09:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 MAR 2019 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -216,62 +216,59 @@ File: exampleimages/example2c.png Graphic file (type png)
 <use exampleimages/example2c.png>
 Package pdftex.def Info: exampleimages/example2c.png  used on input line 99.
 (pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
- [4 <./exampleimages/example2c.png (PNG copy)>] [5]
-[6] [7] [8] [9]
-Overfull \hbox (2.15547pt too wide) in paragraph at lines 288--289
+ [4 <./exampleimages/example2c.png (PNG copy)>]
+<exampleimages/example3a.png, id=31, 80.3pt x 80.3pt>
+File: exampleimages/example3a.png Graphic file (type png)
+<use exampleimages/example3a.png>
+Package pdftex.def Info: exampleimages/example3a.png  used on input line 138.
+(pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
+<exampleimages/example3b.png, id=32, 80.3pt x 80.3pt>
+File: exampleimages/example3b.png Graphic file (type png)
+<use exampleimages/example3b.png>
+Package pdftex.def Info: exampleimages/example3b.png  used on input line 142.
+(pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
+ [5 <./exampleimages/example3a.png (PNG copy)> <./exampleimages/example3b.png (
+PNG copy)>] [6] [7] [8] [9] [10] [11]
+Underfull \hbox (badness 4316) in paragraph at lines 316--317
 []\OT1/cmr/m/n/10 AllSatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ): Each p
-lace-ment which (a) sat-is-fies the points $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m
-/n/10 [0]$,
+lace-ment which (a) sat-is-fies the points
  []
 
 
-Overfull \hbox (18.34857pt too wide) in paragraph at lines 288--289
-\OT1/cmr/m/n/10 ...,$\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10
- i \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1]$ and (b) con-tains only flags ad-ja-
-cent to $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :::; G:
-fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 i \OMS/cmsy/m/n/10 ^^@
+Underfull \hbox (badness 1077) in paragraph at lines 316--317
+\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]$, ...,$\OML/cmm/m/it/10 G:fringe\O
+T1/cmr/m/n/10 [\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1]$ and 
+(b) con-tains only flags ad-ja-cent to
  []
 
 
-Overfull \hbox (56.93753pt too wide) in paragraph at lines 295--296
-\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k\OT1/cmr/m/n/10 ]$ 
-and OnlySatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ) tells us that it als
-o sat-is-fies $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :
-::; G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^@
+Underfull \hbox (badness 1540) in paragraph at lines 319--320
+\OT1/cmr/m/n/10 yielded is sat-is-fac-tory. The state-ment AllSatisfactory(leng
+th($\OML/cmm/m/it/10 G:fringe$\OT1/cmr/m/n/10 ))
  []
 
 
-Overfull \hbox (6.8724pt too wide) in paragraph at lines 295--296
-\OT1/cmr/m/n/10 SPHelper($\OML/cmm/m/it/10 G; k \OT1/cmr/m/n/10 + 1\OML/cmm/m/i
-t/10 ; placement$\OT1/cmr/m/n/10 ) is made within the for each loop. Adding $\O
-ML/cmm/m/it/10 newFlags$
+Underfull \hbox (badness 1038) in paragraph at lines 319--320
+\OT1/cmr/m/n/10 yields ex-actly those sat-is-fac-tory place-ments con-tained wi
+thin the perim-
  []
 
 
-Overfull \hbox (69.20052pt too wide) in paragraph at lines 295--296
-\OT1/cmr/m/n/10 tion in the for each loop $\OML/cmm/m/it/10 newFlags$ \OT1/cmr/
-m/n/10 doesn't con-tain any flags around $\OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n
-/10 [0]\OML/cmm/m/it/10 ; :::; G:fringe\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 k \OMS
-/cmsy/m/n/10 ^^@
+Underfull \hbox (badness 1478) in paragraph at lines 323--324
+\OT1/cmr/m/n/10 sat-is-fies the hint at point $\OML/cmm/m/it/10 G:fringe\OT1/cm
+r/m/n/10 [\OML/cmm/m/it/10 k\OT1/cmr/m/n/10 ]$ and OnlySatisfactory($\OML/cmm/m
+/it/10 k$\OT1/cmr/m/n/10 ) tells us
  []
 
-
-Overfull \hbox (37.74918pt too wide) in paragraph at lines 295--296
-\OT1/cmr/m/n/10 1]$. OnlySatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ) gua
-r-an-tees that $\OML/cmm/m/it/10 placement$ \OT1/cmr/m/n/10 sat-is-fied $\OML/c
-mm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]\OML/cmm/m/it/10 ; :::; G:fringe\OT1/cmr/
-m/n/10 [\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^@
- []
-
-[10] [11] (./theory.aux) ) 
+[12] [13] (./theory.aux) ) 
 Here is how much of TeX's memory you used:
- 2122 strings out of 492649
- 30626 string characters out of 6129622
- 96778 words of memory out of 5000000
- 5992 multiletter control sequences out of 15000+600000
+ 2133 strings out of 492649
+ 30917 string characters out of 6129622
+ 96785 words of memory out of 5000000
+ 6001 multiletter control sequences out of 15000+600000
  8542 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,8n,25p,1237b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,25p,1395b,255s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
@@ -285,10 +282,10 @@ cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
 msy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
 i10.pfb>
-Output written on theory.pdf (11 pages, 178467 bytes).
+Output written on theory.pdf (13 pages, 187147 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 102 PDF objects out of 1000 (max. 8388607)
+ 67 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
