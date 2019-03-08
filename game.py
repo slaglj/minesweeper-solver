@@ -31,6 +31,10 @@ class MinesweeperGame:
 		if self.is_over:
 			raise GameOverException
 
+		if self.is_revealed(point):
+			# Don't allow player to flag revealed squares
+			return
+
 		square = self._get_square(point)
 		if not square.is_flagged:
 			square.is_flagged = True
@@ -239,7 +243,7 @@ class MinesweeperGame:
 	#------------------------------------------------------------------------#
 
 	def __init__(self, dimensions = (8,8), mines = None, num_mines = -1):
-		# boardDimensions is a tuple of board dimensions, 
+		# dimensions is a tuple of board dimensions, 
 		# usually of length two, i.e. (length, width). However, we allow the
 		# possiblity of 3-dimensional or n-dimensional games of minesweeper
 		self.dimensions = dimensions

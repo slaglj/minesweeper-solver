@@ -1,51 +1,7 @@
 from exceptions import *
+from util import powerset
 
 import itertools
-
-
-def show_algorithm(game,solverClass,displayClass):
-    solver = solverClass(game)
-    display = displayClass(game)
-
-    if game.num_revealed < 1:
-        game.reveal(game.random_point())
-
-    print('Initial game (after random first move):')
-    display.display_game()
-    (known_mines,known_free) = solver.solve()
-
-
-    while(known_mines or known_free):
-            display.reset_known(mines = known_mines, free = known_free)
-            display.display_game()
-            display.reset_known()
-
-            input('Press enter to apply the proposed moves (above)')
-
-            try:
-                for mine in known_mines:
-                    game.place_flag(mine)
-
-                for free in known_free:
-                    game.reveal(free)
-
-            except(GameWonException):
-                print('Success! The solver beat the game.')
-                display.display_game()
-                return
-            except(GameOverException):
-                print('The game is over.')
-
-            display.display_game()
-
-            input('The results are above.'
-                ' Press enter to compute the next round of moves.')
-
-            (known_mines,known_free) = solver.solve()
-
-    print('The algorithm didn\'t find any more solutions')
-
-    display.display_game()
 
 def is_fringe_point(game,point):
     if not game.is_revealed(point):
@@ -139,9 +95,9 @@ class BruteSolver():
 class ExhaustiveSolver(BruteSolver):
 
     def _satisfactory_placement_generator(self):
-        yield from self._vmpg_helper(list(self.fringe),0,set([]),set([]))
+        yield from self._sphelper(list(self.fringe),0,set([]),set([]))
 
-    def _vmpg_helper(self,fringe_list,fringe_index,proposed_mines,
+    def _sphelper(self,fringe_list,fringe_index,proposed_mines,
         proposed_free):
         if fringe_index == len(fringe_list):
             # At this point proposed_mines is a satisfactory placement of mines about
@@ -162,7 +118,7 @@ class ExhaustiveSolver(BruteSolver):
                return
             elif(num_needed == 0):
                 # point is satisfied, continue recursing
-                self._vmpg_helper(fringe_list,fringe_index + 1, proposed_mines, proposed_free)
+                self._sphelper(fringe_list,fringe_index + 1, proposed_mines, proposed_free)
             #else: is implicit here
             
             # we must subtract the proposed_free points because they are
@@ -179,7 +135,7 @@ class ExhaustiveSolver(BruteSolver):
                 proposed_mines.update(added_mines)
                 proposed_free.update(added_free)
 
-                yield from self._vmpg_helper(fringe_list,fringe_index + 1,
+                yield from self._sphelper(fringe_list,fringe_index + 1,
                     proposed_mines,proposed_free)
 
                 proposed_mines.difference_update(added_mines)
@@ -278,29 +234,20 @@ class HumanSolver():
                 self.active_fringe.extend(self.game.revealed_neighbors(point))
 
 
-# Code copied from python docs (powerset recipe):
-# https://docs.python.org/3/library/itertools.html
-def powerset(iterable):
-    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
-    
-    # added import
-    from itertools import combinations, chain
-    
-    s = list(iterable)
-    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
-
-# Code copied from stackoverflow answer:
-# stackoverflow.com/questions/4941753/is-there-a-math-ncr-function-in-python
-import operator as op
-from functools import reduce
-
-def ncr(n, r):
-    r = min(r, n-r)
-    numer = reduce(op.mul, range(n, n-r, -1), 1)
-    denom = reduce(op.mul, range(1, r+1), 1)
-    return numer // denom
+class HybridSolver():
 
 
+    def __init__(self,game):
+        self.esolver = ExhaustiveSolver(game)
+        self.hsolver = HumanSolver(game)
+
+    def solve(self):
+        mines,free = self.hsolver.solve()
+
+        if not mines and not free:
+            mines,free = self.esolver.solve()
+
+        return mines,free
 
 
 

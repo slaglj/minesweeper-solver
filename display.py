@@ -98,8 +98,8 @@ class MinesweeperGraphicDisplay():
         
 
     @classmethod
-    def play_game(cls,game):
-        disp = cls(game)
+    def play_game(cls,game,colorscheme='monokai'):
+        disp = cls(game,colorscheme=colorscheme)
 
         running = True
         while running:
@@ -121,8 +121,8 @@ class MinesweeperGraphicDisplay():
                     disp.game.toggle_flag(point)
 
     @classmethod
-    def show_algorithm(cls,game,solverclass):
-        disp = cls(game)
+    def show_algorithm(cls,game,solverclass,colorscheme='monokai'):
+        disp = cls(game,colorscheme=colorscheme)
         solver = solverclass(game)
 
         if game.num_revealed < 1:
@@ -144,12 +144,6 @@ class MinesweeperGraphicDisplay():
                 game.reveal(free)
 
             (known_mines,known_free) = solver.solve()
-            """try:
-                game.reveal(free)
-            except(gm.GameWonException):
-                disp.render_board()
-            except(gm.GameLostException):
-                disp.render_board()"""
         while(True):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
