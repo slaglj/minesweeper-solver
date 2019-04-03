@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 MAR 2019 14:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  3 APR 2019 14:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -81,86 +81,164 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-\c@definition=\count95
-\c@algorithm=\count96
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
 
-Package amsthm Warning: Unknown theoremstyle `theorem' on input line 12.
-
-\c@claim=\count97
-(./theory.aux)
-\openout1 = `theory.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-
-(/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count98
-\scratchdimen=\dimen105
-\scratchbox=\box26
-\nofMPsegments=\count99
-\nofMParguments=\count100
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count101
-\MPscratchDim=\dimen106
-\MPnumerator=\count102
-\makeMPintoPDFobject=\count103
-\everyMPtoPDFconversion=\toks22
-) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)))
-(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
-)
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
-)))
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
 Package: pdftexcmds 2018/01/30 v0.27 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen105
+\Hy@linkcounter=\count95
+\Hy@pagecounter=\count96
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count97
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing OFF on input line 4529.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4762.
+\c@Hy@tempcnt=\count98
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5115.
+\XeTeXLinkMargin=\dimen106
+\Fld@menulength=\count99
+\Field@Width=\dimen107
+\Fld@charsize=\dimen108
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing OFF on input line 6384.
+Package hyperref Info: Link coloring OFF on input line 6389.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
+\Hy@abspage=\count100
+\c@Item=\count101
+\c@Hfootnote=\count102
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
+\Fld@listcount=\count103
+\c@bookmark@seq@number=\count104
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip49
+)
+\c@definition=\count105
+\c@algorithm=\count106
+
+
+Package amsthm Warning: Unknown theoremstyle `theorem' on input line 13.
+
+\c@claim=\count107
+(./theory.aux)
+\openout1 = `theory.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+
+(/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count108
+\scratchdimen=\dimen109
+\scratchbox=\box26
+\nofMPsegments=\count109
+\nofMParguments=\count110
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count111
+\MPscratchDim=\dimen110
+\MPnumerator=\count112
+\makeMPintoPDFobject=\count113
+\everyMPtoPDFconversion=\toks22
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 38.
@@ -173,119 +251,155 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 21.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 21.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 21.
-<exampleimages/example1a.png, id=1, 80.3pt x 80.3pt>
-File: exampleimages/example1a.png Graphic file (type png)
-<use exampleimages/example1a.png>
-Package pdftex.def Info: exampleimages/example1a.png  used on input line 36.
-(pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
+\AtBeginShipoutBox=\box27
+Package hyperref Info: Link coloring OFF on input line 21.
 
-[1
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+(/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count114
+)
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
+
+(./theory.out) (./theory.out)
+\@outlinefile=\write3
+\openout3 = `theory.out'.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 24.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 24.
+ (./theory.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+)
+\tf@toc=\write4
+\openout4 = `theory.toc'.
+
+ [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<exampleimages/example1b.png, id=11, 80.3pt x 80.3pt>
+<exampleimages/example1a.png, id=118, 80.3pt x 80.3pt>
+File: exampleimages/example1a.png Graphic file (type png)
+<use exampleimages/example1a.png>
+Package pdftex.def Info: exampleimages/example1a.png  used on input line 42.
+(pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
+<exampleimages/example1b.png, id=119, 80.3pt x 80.3pt>
 File: exampleimages/example1b.png Graphic file (type png)
 <use exampleimages/example1b.png>
-Package pdftex.def Info: exampleimages/example1b.png  used on input line 40.
+Package pdftex.def Info: exampleimages/example1b.png  used on input line 46.
 (pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 42.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 42.
-<exampleimages/example2a.png, id=12, 112.42pt x 48.18pt>
+ [2 <./exampleimages/example1a.png (PNG copy)> <./exampleimages/example1b.png (
+PNG copy)>]
+<exampleimages/example2a.png, id=126, 112.42pt x 48.18pt>
 File: exampleimages/example2a.png Graphic file (type png)
 <use exampleimages/example2a.png>
-Package pdftex.def Info: exampleimages/example2a.png  used on input line 57.
+Package pdftex.def Info: exampleimages/example2a.png  used on input line 63.
 (pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
-
-[2 <./exampleimages/example1a.png (PNG copy)> <./exampleimages/example1b.png (P
-NG copy)> <./exampleimages/example2a.png (PNG copy)>]
-<exampleimages/example2b.png, id=19, 112.42pt x 48.18pt>
+<exampleimages/example2b.png, id=127, 112.42pt x 48.18pt>
 File: exampleimages/example2b.png Graphic file (type png)
 <use exampleimages/example2b.png>
-Package pdftex.def Info: exampleimages/example2b.png  used on input line 61.
+Package pdftex.def Info: exampleimages/example2b.png  used on input line 67.
 (pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
- [3 <./exampleimages/example2b.png (PNG copy)>]
-<exampleimages/example2c.png, id=26, 112.42pt x 48.18pt>
+ [3 <./exampleimages/example2a.png (PNG copy)> <./exampleimages/example2b.png (
+PNG copy)>]
+<exampleimages/example2c.png, id=135, 112.42pt x 48.18pt>
 File: exampleimages/example2c.png Graphic file (type png)
 <use exampleimages/example2c.png>
-Package pdftex.def Info: exampleimages/example2c.png  used on input line 99.
+Package pdftex.def Info: exampleimages/example2c.png  used on input line 105.
 (pdftex.def)             Requested size: 103.50105pt x 44.35919pt.
- [4 <./exampleimages/example2c.png (PNG copy)>]
-<exampleimages/example3a.png, id=31, 80.3pt x 80.3pt>
+ [4 <./exampleimages/example2c.png (PNG copy)>] [5]
+<exampleimages/example3a.png, id=148, 80.3pt x 80.3pt>
 File: exampleimages/example3a.png Graphic file (type png)
 <use exampleimages/example3a.png>
-Package pdftex.def Info: exampleimages/example3a.png  used on input line 138.
+Package pdftex.def Info: exampleimages/example3a.png  used on input line 145.
 (pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
-<exampleimages/example3b.png, id=32, 80.3pt x 80.3pt>
+<exampleimages/example3b.png, id=149, 80.3pt x 80.3pt>
 File: exampleimages/example3b.png Graphic file (type png)
 <use exampleimages/example3b.png>
-Package pdftex.def Info: exampleimages/example3b.png  used on input line 142.
+Package pdftex.def Info: exampleimages/example3b.png  used on input line 149.
 (pdftex.def)             Requested size: 68.99895pt x 69.00027pt.
- [5 <./exampleimages/example3a.png (PNG copy)> <./exampleimages/example3b.png (
-PNG copy)>] [6] [7] [8] [9] [10] [11]
-Underfull \hbox (badness 4316) in paragraph at lines 316--317
+ [6 <./exampleimages/example3a.png (PNG copy)> <./exampleimages/example3b.png (
+PNG copy)>] [7] [8] [9] [10] [11] [12]
+Underfull \hbox (badness 4316) in paragraph at lines 329--330
 []\OT1/cmr/m/n/10 AllSatisfactory($\OML/cmm/m/it/10 k$\OT1/cmr/m/n/10 ): Each p
 lace-ment which (a) sat-is-fies the points
  []
 
 
-Underfull \hbox (badness 1077) in paragraph at lines 316--317
+Underfull \hbox (badness 1077) in paragraph at lines 329--330
 \OML/cmm/m/it/10 G:fringe\OT1/cmr/m/n/10 [0]$, ...,$\OML/cmm/m/it/10 G:fringe\O
 T1/cmr/m/n/10 [\OML/cmm/m/it/10 k \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1]$ and 
 (b) con-tains only flags ad-ja-cent to
  []
 
 
-Underfull \hbox (badness 1540) in paragraph at lines 319--320
+Underfull \hbox (badness 1540) in paragraph at lines 332--333
 \OT1/cmr/m/n/10 yielded is sat-is-fac-tory. The state-ment AllSatisfactory(leng
 th($\OML/cmm/m/it/10 G:fringe$\OT1/cmr/m/n/10 ))
  []
 
 
-Underfull \hbox (badness 1038) in paragraph at lines 319--320
+Underfull \hbox (badness 1038) in paragraph at lines 332--333
 \OT1/cmr/m/n/10 yields ex-actly those sat-is-fac-tory place-ments con-tained wi
 thin the perim-
  []
 
 
-Underfull \hbox (badness 1478) in paragraph at lines 323--324
+Underfull \hbox (badness 1478) in paragraph at lines 336--337
 \OT1/cmr/m/n/10 sat-is-fies the hint at point $\OML/cmm/m/it/10 G:fringe\OT1/cm
 r/m/n/10 [\OML/cmm/m/it/10 k\OT1/cmr/m/n/10 ]$ and OnlySatisfactory($\OML/cmm/m
 /it/10 k$\OT1/cmr/m/n/10 ) tells us
  []
 
-[12] [13] (./theory.aux) ) 
+[13] [14]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 360.
+ [15]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 360.
+ (./theory.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 360.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 360.
+Package rerunfilecheck Info: File `theory.out' has not changed.
+(rerunfilecheck)             Checksum: 5AF99202A290F849502FF1006A46A857;1373.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 360.
+ ) 
 Here is how much of TeX's memory you used:
- 2133 strings out of 492649
- 30917 string characters out of 6129622
- 96785 words of memory out of 5000000
- 6001 multiletter control sequences out of 15000+600000
- 8542 words of font info for 30 fonts, out of 8000000 for 9000
+ 5732 strings out of 492649
+ 85078 string characters out of 6129622
+ 177491 words of memory out of 5000000
+ 9528 multiletter control sequences out of 15000+600000
+ 9019 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,8n,25p,1395b,255s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
-msy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb>
-Output written on theory.pdf (13 pages, 187147 bytes).
+ 28i,8n,28p,1351b,481s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local
+/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/te
+xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texli
+ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
+018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/201
+8/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on theory.pdf (15 pages, 233890 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 67 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 229 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 188 words of extra memory for PDF output out of 10000 (max. 10000000)
 
