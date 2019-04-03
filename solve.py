@@ -1,9 +1,30 @@
+"""
+Algorithms to solve a game of minesweeper. Each algorithm corresponds to 
+a class, e.g. BruteSolver implements the brute force algorithm. The
+algorithms are implemented in the solve() methods of the corresponding class.
+The document theory.pdf discusses the development of the algorithms and 
+derives their space and time complexity. 
+"""
+# Jacob C. Slagle, 2018
+# Note that the variable and function names used in this module match the 
+# terminology used in theory.pdf
+
 from exceptions import *
 from util import powerset
 
 import itertools
 
+
 def is_fringe_point(game,point):
+    """Return true if point is on the fringe of the board in game
+
+        a point is on the fringe if it is revealed and at least one of it's
+        neighbors is not revealed - see theory.pdf
+
+        Args:
+            game (MinesweeperGame) -- a game of minesweeper
+            point (tuple of ints) -- coordinate point on the board in game
+    """
     if not game.is_revealed(point):
         return False
     try:
@@ -14,6 +35,15 @@ def is_fringe_point(game,point):
         return True
 
 def is_in_play(game,point):
+    """Return true if point is in play in game
+
+        a point is in play if it is unrevealed and at least one of it's
+        neighbors is revealed - see theory.pdf
+
+        Args:
+            game (MinesweeperGame) -- a game of minesweeper
+            point (tuple of ints) -- coordinate point on the board in game
+    """
     if game.is_revealed(point) or game.is_flagged(point):
         return False
 
@@ -25,6 +55,17 @@ def is_in_play(game,point):
         return True
 
 class BruteSolver():
+    """
+    Solves a game of minesweeper.
+
+    Solvers are initialized by passing a game to be solved as a parameter.
+    The sole use of a solver is the solve() function which is called 
+    repeatedly to solve the game with which the solver is initialize. See the
+    documentation for solve for more details.
+
+    Methods
+        solve() -- returns points that are known to be free or mined
+    """
 
     def __init__(self,game):
         self.game = game
@@ -41,6 +82,23 @@ class BruteSolver():
         self.game.add_move_protocol(self._update_solver_with_move)
 
     def solve(self):
+        """Returns a set of known mines and a set of known free squares
+
+            The sets are returned as a pair (mines,free) where of course
+            mines is the set of points that the algorithm determines has mines
+            and free is the set determined to have no mines. The client is 
+            responsible for actually applying this information to the game.
+            If a pair of empty sets is returned, then the algorithm can not
+            determine any more mined or free spaces. In this case only empty
+            sets will be returned, unless the state of the game is changed,
+            at which point the algorithm has more information to use and 
+            may return nonempty sets.
+
+            Return:
+                (mines,free)
+                    mines -- a set of points determined to contain mines
+                    free -- a set of points determined to be free.
+        """
         known_mines = set(self.perimiter)
         known_free = set(self.perimiter)
 
@@ -53,13 +111,14 @@ class BruteSolver():
         return (known_mines,known_free)
 
     def _satisfactory_placement_generator(self):
-        # generates all satisfactory mine placements in the current game
+        # generates all satisfactory mine placements 
 
         # note the use of of powerset, a function (not method)
         # defined in this using the recipe from itertools package 
         return filter(self._is_satisfactory_placement, powerset(self.perimiter))
 
     def _is_satisfactory_placement(self,mines):
+        #
         for point in self.fringe:
             is_proposed = lambda x: self.game.is_flagged(x) or x in mines
             num_mines_proposed = len(list(
@@ -93,6 +152,17 @@ class BruteSolver():
                 self.fringe.update(self.game.revealed_neighbors(point))
 
 class ExhaustiveSolver(BruteSolver):
+    """
+    Solves a game of minesweeper.
+
+    Solvers are initialized by passing a game to be solved as a parameter.
+    The sole use of a solver is the solve() function which is called 
+    repeatedly to solve the game with which the solver is initialize. See the
+    documentation for solve for more details.
+
+    Methods
+        solve() -- returns points that are known to be free or mined
+    """
 
     def _satisfactory_placement_generator(self):
         yield from self._sphelper(list(self.fringe),0,set([]),set([]))
@@ -142,6 +212,17 @@ class ExhaustiveSolver(BruteSolver):
                 proposed_free.difference_update(added_free)
 
 class HumanSolver():
+    """
+    Solves a game of minesweeper.
+
+    Solvers are initialized by passing a game to be solved as a parameter.
+    The sole use of a solver is the solve() function which is called 
+    repeatedly to solve the game with which the solver is initialize. See the
+    documentation for solve for more details.
+
+    Methods
+        solve() -- returns points that are known to be free or mined
+    """
 
     def __init__(self,game):
         self.game = game
@@ -235,6 +316,17 @@ class HumanSolver():
 
 
 class HybridSolver():
+    """
+    Solves a game of minesweeper.
+
+    Solvers are initialized by passing a game to be solved as a parameter.
+    The sole use of a solver is the solve() function which is called 
+    repeatedly to solve the game with which the solver is initialize. See the
+    documentation for solve for more details.
+
+    Methods
+        solve() -- returns points that are known to be free or mined
+    """
 
 
     def __init__(self,game):
@@ -242,6 +334,24 @@ class HybridSolver():
         self.hsolver = HumanSolver(game)
 
     def solve(self):
+        """Returns a set of known mines and a set of known free squares
+
+            The sets are returned as a pair (mines,free) where of course
+            mines is the set of points that the algorithm determines has mines
+            and free is the set determined to have no mines. The client is 
+            responsible for actually applying this information to the game.
+            If a pair of empty sets is returned, then the algorithm can not
+            determine any more mined or free spaces. In this case only empty
+            sets will be returned, unless the state of the game is changed,
+            at which point the algorithm has more information to use and 
+            may return nonempty sets.
+
+            Return:
+                (mines,free)
+                    mines -- a set of points determined to contain mines
+                    free -- a set of points determined to be free.
+        """
+
         mines,free = self.hsolver.solve()
 
         if not mines and not free:

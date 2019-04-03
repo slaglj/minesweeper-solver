@@ -1,4 +1,13 @@
-# The code to run and display a game of Minesweeper
+"""
+The code to track the internals of a game of minesweeper in the form of
+a MinesweeperGame object. There is no code pertaining to the display of
+the game or any sort of user interface - see the display module for that.
+
+
+classes
+	MinesweeperGame - data structure representing a minesweeper game
+"""
+
 # Jacob C. Slagle, 2018
 
 from exceptions import *
@@ -10,7 +19,36 @@ class MinesweeperGame:
 	"""
 	A MinesweeperGame object tracks the state of a game of Minesweeper
 
-	Methods:
+	A MinesweeperGame is a data structure that manages all of the 
+	internals of a minesweeper game, but does not manage any interface with a
+	player. Another class must use a MinesweeperGame object and act as an
+	interface with a player to run a "full" game.
+
+	Methods
+
+		Move Methods
+			place_flag() - place flag on board
+			remove_flag() - remove flag from board
+			toggle_flag() - switch between flag or unflagged
+			reveal() - reveal square
+
+		Query Methods
+			is_flagged() - check if square is flagged
+			is_revealed() - check if square is revealed
+			num_mines_surrounding() - get number of mines around square
+			contains_mine() - check if sqaure contains mine
+
+		Iterator Methods:
+			board_iterator() - return iterator over game board
+			neighbors() - return iterator over a square's neighbors
+			flagged_neighbors() - return iterator over a square's flagged neighbors
+			revealed_neighbors() - return iterator over a square's revealed neighbors
+			blank_neighbors() - return iterator over a square's revealed neighbors
+			random_point()
+
+		Miscellaneous:
+			add_move_protocol()
+
 	"""
 	#------------------------------------------------------------------------#
 	# The following methods implement the moves a player can make, i.e.      #
@@ -236,6 +274,18 @@ class MinesweeperGame:
 	#------------------------------------------------------------------------#
 
 	def add_move_protocol(self,prot):
+		"""Adds a protocol to execute in response to gameplay
+
+			Whenever a move is made at a point, the protocol is "notified" of 
+			which point was affected and by what kind of move ('reveal','flag',
+			'unflag'), and the protocol is executed. What the protocol can do
+			is arbitrary, although it should do minimal work.
+			
+			Args:
+				prot (function) -- a function of the form prot(point,move_type)
+					where point is a point on the game board and move_type is 
+					a string in the set {'reveal','flag','unflag'}. 
+		"""
 		self.move_protocols.append(prot)
 
 	#------------------------------------------------------------------------#
