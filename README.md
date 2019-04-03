@@ -8,7 +8,7 @@ To play the game and see demonstrations of the algorithms, make sure Python 3 an
 $ python3 playgame.py
 $ python3 showalgorithm.py
 ```
-There are options to change the display style and difficulty (size of the game) for both commands, but most importantly showalgorithm.py can display different algorithms
+Add a -h to see options. There are options to change the display style and difficulty (size of the game) for both commands, but most importantly showalgorithm.py can display different algorithms
 
 ```bash
 $ python3 showalgorithm.py -m {human,exhaustive,hybrid}
