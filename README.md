@@ -1,6 +1,6 @@
 # minesweeper_solver
 
-Minesweeper Solver is simply a personal project I took up to round out my coding skills. In it I implement minesweeper in Python 3 with the Pygame library. In it I implemented the game as well as algorithms to solve it. 
+Minesweeper Solver is simply a personal project I took up to round out my coding skills. In it I implement minesweeper in Python 3 with the Pygame library, as well as algorithms to solve it.
 
 To play the game and see demonstrations of the algorithms, make sure Python 3 and pygame are installed and run the following commands from the top level directory:
 
